@@ -15,11 +15,7 @@
 		
 		<h1>Using IoC Container</h1>
 		
-		<h3>Courses</h3>		
-		
-		<div>
-			<a class="btn btn-primary" href="course-edit">Add New Course</a>
-		</div>
+		<h3>Course Edit</h3>		
 	
 	</div>
 
