@@ -8,4 +8,5 @@ public interface CourseModel {
 
 	List<Course> getAll();
 	void save(Course course);
+	Course findById(int id);
 }
