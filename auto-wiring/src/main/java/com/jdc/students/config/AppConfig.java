@@ -17,7 +17,7 @@ public class AppConfig {
 	private static final String USER = "student";
 	private static final String PASS = "student";
 
-	@Bean
+	@Bean(name = "appDs")
 	DataSource dataSource() {
 		var ds = new MysqlDataSource();
 		ds.setUrl(URL);
@@ -27,8 +27,8 @@ public class AppConfig {
 	}
 	
 	@Bean
-	CourseDao dao(DataSource ds) {
-		return new CourseDao(ds);
+	CourseDao dao(DataSource appDs) {
+		return new CourseDao(appDs);
 	}
 
 }

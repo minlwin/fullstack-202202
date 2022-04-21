@@ -4,7 +4,7 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="testDs" class="com.mysql.cj.jdbc.MysqlDataSource" 
+	<bean id="ds" class="com.mysql.cj.jdbc.MysqlDataSource" 
 		p:url="jdbc:mysql://localhost:3306/student_db"
 		p:user="root" p:password="admin" >
 	</bean>
