@@ -8,9 +8,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	
+	<context:annotation-config></context:annotation-config>
+
 	<bean id="dataSource" class="com.mysql.cj.jdbc.MysqlDataSource" 
 		p:url="jdbc:mysql://localhost:3306/student_db" 
 		p:user="student" p:password="student" />
-		
-	<bean id="courseDao" class="com.jdc.students.dao.CourseDao" autowire="constructor" />
+			
+	<bean id="courseDao" class="com.jdc.students.dao.CourseDao"></bean>
 </beans>

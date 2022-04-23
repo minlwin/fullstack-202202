@@ -4,14 +4,24 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class DbUtils {
 	
+	@Autowired
 	private DataSource testDs;
+	
+	public DbUtils() {
+	}
 	
 	public DbUtils(DataSource testDs) {
 		this.testDs = testDs;
 	}
 
+	public void setTestDs(DataSource testDs) {
+		this.testDs = testDs;
+	}
+	
 	public void truncate(String ... tables) {
 		
 		try(var conn = testDs.getConnection();

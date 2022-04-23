@@ -5,6 +5,8 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.jdc.students.dto.Course;
 import com.jdc.students.dto.Course.Level;
 
@@ -16,10 +18,19 @@ public class CourseDao {
 
 	private static final String FIND_BY_ID = "select * from course where id = ?";
 	
+
 	private DataSource dataSource;
+	
+	public CourseDao() {
+	}
 	
 	public CourseDao(DataSource dataSource) {
 		super();
+		this.dataSource = dataSource;
+	}
+	
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
