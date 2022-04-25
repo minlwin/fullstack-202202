@@ -9,15 +9,16 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import com.jdc.students.config.AppConfig;
 import com.jdc.students.dao.CourseDao;
 import com.jdc.students.dto.Course;
 import com.jdc.students.dto.Course.Level;
+import com.jdc.test.utils.TestConfig;
 import com.jdc.test.utils.db.DbUtils;
 
 @SpringJUnitConfig(
-		locations = {
-				"classpath:dao-config.xml",
-				"classpath:test-config.xml"
+		classes = {
+				AppConfig.class, TestConfig.class
 		}
 )
 @TestMethodOrder(value = OrderAnnotation.class)

@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import com.jdc.students.dao.CourseDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -16,7 +17,8 @@ public class AppConfig {
 	private static final String URL = "jdbc:mysql://localhost:3306/student_db";
 	private static final String USER = "student";
 	private static final String PASS = "student";
-
+	
+	@Primary
 	@Bean(name = "appDs")
 	DataSource dataSource() {
 		var ds = new MysqlDataSource();

@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import com.jdc.test.utils.db.DbUtils;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -12,6 +13,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public class TestConfig {
 	
 	@Bean
+	@Primary
 	DataSource testDs() {
 		var ds = new MysqlDataSource();
 		ds.setUrl("jdbc:mysql://localhost:3306/student_db");

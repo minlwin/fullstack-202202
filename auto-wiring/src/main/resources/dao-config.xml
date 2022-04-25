@@ -11,6 +11,7 @@
 	<context:annotation-config></context:annotation-config>
 
 	<bean id="dataSource" class="com.mysql.cj.jdbc.MysqlDataSource" 
+		
 		p:url="jdbc:mysql://localhost:3306/student_db" 
 		p:user="student" p:password="student" />
 			
