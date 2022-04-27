@@ -1,7 +1,7 @@
 package com.jdc.test;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.jdc.demo.AppClient;
 
@@ -10,9 +10,9 @@ public class AutowireOptionTest {
 	@Test
 	void test() {
 		
-		try(var context = new GenericXmlApplicationContext()) {
+		try(var context = new AnnotationConfigApplicationContext()) {
 			
-			context.load("classpath:app-config.xml");
+			context.scan("com.jdc.demo");
 			context.refresh();
 			
 			var bean = context.getBean(AppClient.class);

@@ -6,10 +6,21 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	
-	<bean id="one" class="com.jdc.demo.AppServiceOne"></bean>
+	<bean id="one" class="com.jdc.demo.AppServiceOne">
+		<qualifier type="com.jdc.config.qualifiers.ServiceOne"></qualifier>
+	</bean>
 
-	<bean id="two" class="com.jdc.demo.AppServiceTwo"></bean>
+	<bean id="two" class="com.jdc.demo.AppServiceTwo">
+		<qualifier type="com.jdc.config.qualifiers.ServiceTwo"></qualifier>
+	</bean>
 	
-	<bean id="client" class="com.jdc.demo.AppClient" autowire="byType"></bean>
-	<context:annotation-config></context:annotation-config>
+	<bean class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
+		<property name="customQualifierTypes">
+			<set>
+				<value>com.jdc.config.qualifiers.ServiceOne</value>
+				<value>com.jdc.config.qualifiers.ServiceTwo</value>
+			</set>
+		</property>
+	</bean>
+	
 </beans>

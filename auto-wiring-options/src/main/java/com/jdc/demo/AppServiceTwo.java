@@ -1,8 +1,9 @@
 package com.jdc.demo;
 
-import javax.annotation.Priority;
+import com.jdc.config.qualifiers.AppServices;
+import com.jdc.config.qualifiers.AppServices.Type;
 
-@Priority(2)
+@AppServices(Type.TWO)
 public class AppServiceTwo implements AppService{
 	
 	// Business Codes
