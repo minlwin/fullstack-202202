@@ -14,7 +14,7 @@
 		<qualifier type="com.jdc.config.qualifiers.ServiceTwo"></qualifier>
 	</bean>
 	
-	<bean class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
+	<bean lazy-init="true" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
 		<property name="customQualifierTypes">
 			<set>
 				<value>com.jdc.config.qualifiers.ServiceOne</value>
