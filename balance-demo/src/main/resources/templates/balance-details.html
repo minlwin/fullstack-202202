@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/authenticated.html}">
+<head>
+<meta charset="UTF-8">
+<title>Details</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	
+		<div class="card mb-4">
+			
+			<div class="card-header"><i class="bi-pie-chart"></i> Balance Summary</div>
+			
+			<div class="card-body">
+			
+				<div class="row">
+					
+					<div class="col-auto">
+						<span class="form-control">2022/10/11</span>
+					</div>
+				
+					<div class="col-auto">
+						<span class="form-control">Incomes</span>
+					</div>
+
+					<div class="col-4">
+						<span class="form-control">Student Registration</span>
+					</div>
+					
+					<div class="col-auto">
+						<a th:href="@{'/user/balance/edit/1'}" class="btn btn-primary"><i class="bi-pencil"></i> Edit Details</a>
+						<a th:href="@{'/user/balance/delete/1'}" class="btn btn-danger"><i class="bi-trash"></i> Delete</a>
+					</div>
+
+				</div>
+			
+			</div>
+		
+		</div>
+		
+		
+		<div class="card">
+			
+			<div class="card-header"><i class="bi-list-check"></i> Balance Details</div>
+			
+			<div class="card-body">
+			
+				<table class="table table-striped">
+					
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Item Name</th>
+							<th class="text-end">Unit Price</th>
+							<th class="text-end">Quantity</th>
+							<th class="text-end">Price</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						
+						<tr>
+							<td>1</td>
+							<td>Java Basic Online</td>
+							<td class="text-end">150,000</td>
+							<td class="text-end">3</td>
+							<td class="text-end">450,000</td>
+						</tr>
+					
+					</tbody>
+					
+					<tfoot>
+						<tr>
+							<td colspan="3" class="text-end">Total</td>
+							<td class="text-end">3</td>
+							<td class="text-end">450,000</td>
+						</tr>
+					</tfoot>
+				
+				</table>
+			
+			</div>
+		
+		</div>
+	</div>
+
+</body>
+</html>

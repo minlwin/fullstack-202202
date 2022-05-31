@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">Balance</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+	<div class="container">
+		
+		<h1 class="py-4"><i class="bi-bar-chart"></i> Balance Management System</h1>
+		
+		<div class="row">
+		
+			<div class="col-3">
+				
+				<div class="list-group">
+				
+					<a th:href="@{/}" class="list-group-item"><i class="bi-house"></i> Home</a>
+					<a th:href="@{/user/home/incomes}" class="list-group-item"><i class="bi-arrow-up-circle"></i> Incomes</a>
+					<a th:href="@{/user/home/expenses}" class="list-group-item"><i class="bi-arrow-down-circle"></i> Expenses</a>
+					<a th:href="@{/admin/users}" class="list-group-item"><i class="bi-people"></i> User Management</a>
+					<a href="#" data-bs-toggle="modal" data-bs-target="#changePassword" class="list-group-item"><i class="bi-key"></i> Change Password</a>
+					<a th:href="@{/signout}" class="list-group-item"><i class="bi-door-open"></i> Logout</a>
+				</div>
+			
+			</div>
+			
+			<div class="col">
+			
+				<div layout:fragment="content"></div>
+			
+			</div>
+		</div>
+	
+	</div>
+
+	<div th:replace="/fragments/modals :: changePass" id="changePassContainer"></div>
+</body>
+</html>

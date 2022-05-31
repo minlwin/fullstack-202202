@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/anonymous.html}">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	
+		<h3 class="text-center mb-3">Balance Management</h3>
+		
+		<form th:action="@{/signup}" method="post" class="card">
+			
+			<div class="card-header"><i class="bi-person-plus"></i> Sign Up Form</div>
+			
+			<div class="card-body">
+				
+				<div class="mb-3">
+					<label for="login">Name</label>
+					<div class="input-group">
+						<span class="input-group-text">
+							<i class="bi-person-circle"></i>
+						</span>
+						<input id="login" type="text" class="form-control" placeholder="Enter Name" />
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label for="login">Login Id</label>
+					<div class="input-group mt-1">
+						<span class="input-group-text">
+							<i class="bi-lock"></i>
+						</span>				
+						<input id="login" type="text" class="form-control" placeholder="Enter Login Id" />
+					</div>
+				</div>
+			
+				<div>
+					<label for="pass">Password</label>
+					<div class="input-group mt-1">
+						<span class="input-group-text">
+							<i class="bi-key"></i>
+						</span>
+						<input id="pass" type="password" class="form-control" placeholder="Enter Password" />
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="card-footer">
+				<button class="btn btn-primary"><i class="bi-person-plus"></i> Sign Up</button>
+				<a th:href="@{/signin}" class="btn btn-secondary"><i class="bi-person-check"></i> Sign In</a>				
+			</div>
+		</form>
+	
+	</div>
+
+</body>
+</html>

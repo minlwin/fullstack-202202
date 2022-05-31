@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" 
+	layout:decorate="~{/layouts/authenticated.html}">
+<head>
+<meta charset="UTF-8">
+<title>Incomes</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		
+		<!-- Search Box -->
+		<div class="card">
+			
+			<div class="card-header" th:text="${title}" >Balance</div>
+			
+			<div class="card-body">
+				
+				<form action="#" class="row">
+				
+					<div class="col-auto">
+						<input type="date" name="dateFrom" class="form-control" />
+					</div>
+					
+					<div class="col-auto">
+						<input type="date" name="dateTo" class="form-control" />
+					</div>
+					
+					<div class="col-3">
+						<input type="text" placeholder="Category" class="form-control" />
+					</div>
+					
+					<div class="col">
+						<button class="btn btn-primary"><i class="bi-search"></i> Search</button>
+						<a th:href="@{'/user/balance/add/' + ${type}}" class="btn btn-danger"><i class="bi-plus"></i> Add New</a>
+					</div>
+				</form>
+			
+			</div>
+		
+		</div>
+		
+		
+		<!-- Result Table -->
+		<table class="table table-striped mt-4">
+			
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Category</th>
+					<th>Remark</th>
+					<th class="text-end">Amount</th>
+					<th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr>
+					<td>2022/05/10</td>
+					<td>Student Fees</td>
+					<td>Java Basic Online Course</td>
+					<td class="text-end">
+						<a class="text-decoration-none" th:href="@{/user/balance/1}" >150,000</a>
+					</td>
+					<td>
+					</td>
+				</tr>
+				
+			</tbody>
+		
+		</table>
+	
+	</div>
+
+</body>
+</html>

@@ -12,6 +12,18 @@ public class Project {
 	private int managerLogin;
 	private LocalDate startDate;
 	private int months;
+	
+	public Project() {
+	}
+	
+	public Project(String name, String description, int managerId, LocalDate startDate, int months) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.managerId = managerId;
+		this.startDate = startDate;
+		this.months = months;
+	}
 
 	public int getId() {
 		return id;

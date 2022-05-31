@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/authenticated.html}">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Edit View</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	
+		<!-- Summary -->
+		<div class="card mb-4">
+			
+			<div class="card-header"><i class="bi-pie-chart"></i> <span th:text="${title}"></span></div>
+			
+			<div class="card-body">
+				
+				<form th:action="@{/user/balance}" method="post" class="row">
+					
+					<div class="col-auto">
+						<input type="date" class="form-control" />
+					</div>
+					
+					<div class="col-4">
+						<input type="text" class="form-control"
+							placeholder="Enter Category" />
+					</div>
+					
+					<div class="col-2 text-end">
+						<span class="form-control">360,000</span>
+					</div>
+					
+					<div class="col">
+						<button type="submit" class="btn btn-primary"><i class="bi-save"></i> Save Details</button>
+					</div>
+				
+				</form>
+			
+			</div>
+		
+		</div>
+		
+		<!-- Add Details Form -->
+		<div class="card mb-4">
+		
+			<div class="card-header"><i class="bi-plus"></i> Add Details</div>
+		
+			<div class="card-body">
+				
+				<form action="#" class="row">
+					
+					<div class="col-4">
+						<input type="text" class="form-control" placeholder="Enter Item Name" />
+					</div>
+					
+					<div class="col-3">
+						<input type="number" placeholder="Unit Price" class="form-control" />
+					</div>
+					<div class="col-2">
+						<input type="number" placeholder="Quantity" class="form-control" />
+					</div>
+					
+					<div class="col">
+						<button class="btn btn-primary"><i class="bi-plus"></i> Add Item</button>
+					</div>
+				</form>
+				
+			</div>
+		</div>	
+	
+		
+		<!-- Details List -->
+		<div class="card">
+			
+			<div class="card-header"><i class="bi-list-check"></i> Details List</div>
+			
+			<div class="card-body">
+			
+				<table class="table table-striped">
+					
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Item Name</th>
+							<th class="text-end">Unit Price</th>
+							<th class="text-end">Quantity</th>
+							<th class="text-end">Price</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						
+						<tr>
+							<td>1</td>
+							<td>Java Basic Online</td>
+							<td class="text-end">150,000</td>
+							<td class="text-end">3</td>
+							<td class="text-end">450,000</td>
+						</tr>
+					
+					</tbody>
+					
+				</table>
+			
+			</div>
+		
+		</div>
+	</div>		
+	
+
+</body>
+</html>

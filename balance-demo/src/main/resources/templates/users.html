@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/authenticated.html}">
+<head>
+<meta charset="UTF-8">
+<title>Users</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	
+		<div class="card">
+			
+			<div class="card-header"><i class="bi-people"></i> User Management</div>
+			
+			<div class="card-body">
+				
+				<form action="" class="row">
+				
+					<div class="col-3">
+						<select name="status" id="status" class="form-select">
+							<option value="">All User</option>
+							<option value="Active">Active</option>
+							<option value="Removed">Removed</option>
+						</select>
+					</div>
+				
+					<div class="col-auto">
+						<input type="text" class="form-control" placeholder="Name" />
+					</div>
+					
+					<div class="col-auto">
+						<input type="date" class="form-control"  />
+					</div>
+					
+					<div class="col">
+						<button class="btn btn-primary"><i class="bi-search"></i> Search</button>
+					</div>
+				</form>
+			
+			</div>
+		</div>
+		
+		
+		<table class="table table-striped mt-4">
+		
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Status</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="align-middle">
+					<td>1</td>
+					<td>Aung Aung</td>
+					<td>Active</td>
+					<td>09778999999</td>
+					<td>aung@gmail.com</td>
+					<td>
+						<a href="#" class="btn btn-link">
+							<i class="bi-trash"></i>
+						</a>
+					</td>				
+				</tr>
+			</tbody>
+		
+		</table>
+	
+	</div>
+
+</body>
+</html>
