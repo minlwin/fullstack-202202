@@ -42,4 +42,28 @@ public class ProjectDbConfiguration {
 		return insert;
 	}
 
+	@Bean
+	SimpleJdbcInsert projectInsert(DataSource dataSource) {
+		var insert = new SimpleJdbcInsert(dataSource);
+		insert.setTableName("project");
+		insert.setGeneratedKeyName("id");
+		return insert;
+	}
+
+	@Bean
+	SimpleJdbcInsert taskInsert(DataSource dataSource) {
+		var insert = new SimpleJdbcInsert(dataSource);
+		insert.setTableName("task");
+		insert.setGeneratedKeyName("id");
+		return insert;
+	}
+	
+	@Bean
+	SimpleJdbcInsert assignmentInsert(DataSource dataSource) {
+		var insert = new SimpleJdbcInsert(dataSource);
+		insert.setTableName("assignment");
+		insert.setGeneratedKeyName("id");
+		return insert;
+	}
+	
 }

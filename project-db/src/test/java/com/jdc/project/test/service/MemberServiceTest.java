@@ -1,4 +1,4 @@
-package com.jdc.project.test;
+package com.jdc.project.test.service;
 
 import static com.jdc.project.test.utils.MemberServiceTestUtils.assertMemberValues;
 import static com.jdc.project.test.utils.MemberServiceTestUtils.dto;
@@ -34,7 +34,7 @@ public class MemberServiceTest {
 		"7,Min Lwin,minlwin,minlwin,Admin,true",
 		"7,Kyaw Lwin,kyawlwin,kyawlwin,Member,true",
 	})
-	void test_create_member_success(String csv) {
+	void should_create_member_success(String csv) {
 		
 		// Prepare Data
 		var expectedId = id(csv);
@@ -53,7 +53,7 @@ public class MemberServiceTest {
 		",minlwin,minlwin,Admin,true",
 		",kyawlwin,kyawlwin,Member,true",
 	})
-	void test_create_member_no_name(String csv) {
+	void should_not_create_member_no_name(String csv) {
 		// Prepare Data
 		var dto = dto(csv);
 		
@@ -70,7 +70,7 @@ public class MemberServiceTest {
 		"Min Lwin,,minlwin,Admin,true",
 		"Min Lwin,,kyawlwin,Member,true",
 	})
-	void test_create_member_no_login_id(String csv) {
+	void should_not_create_member_no_login_id(String csv) {
 		// Prepare Data
 		var dto = dto(csv);
 		
@@ -87,7 +87,7 @@ public class MemberServiceTest {
 		"Min Lwin,minlwin,,Admin,true",
 		"Min Lwin,kyawlwin,,Member,true",
 	})
-	void test_create_member_no_password(String csv) {
+	void should_not_create_member_no_password(String csv) {
 		// Prepare Data
 		var dto = dto(csv);
 		
@@ -104,7 +104,7 @@ public class MemberServiceTest {
 		"Ko Ko Oo,kokooo,kokooo,Admin,true",
 		"Aung Aung,aungaung,aungaung,Member,true",
 	})
-	void test_create_member_duplicate_login_id(String csv) {
+	void should_not_create_member_duplicate_login_id(String csv) {
 		// Prepare Data
 		var dto = dto(csv);
 		
@@ -121,7 +121,7 @@ public class MemberServiceTest {
 		"1,Ko Ko Oo,kokooo,kokooo,Admin,true",
 		"2,Aung Aung,aungaung,aungaung,Member,true",
 	})
-	void test_find_member_by_id(String csv) {
+	void should_found_member_by_id(String csv) {
 		// Prepare Data
 		var id = id(csv);
 		var dto = dto(csv);
@@ -139,7 +139,7 @@ public class MemberServiceTest {
 		"1,Thidar,Member",
 		"2,Nilar,Admin"
 	})
-	void test_update_member_name_and_role(int id, String name, Role role) {
+	void should_update_member_name_and_role(int id, String name, Role role) {
 		// Business Method Execution
 		var result = service.updateNameAndRole(id, name, role);
 
@@ -157,7 +157,7 @@ public class MemberServiceTest {
 		"kokooo,kokooo,KOKOOO",
 		"aungaung,aungaung,AUNGAUNG"
 	})
-	void test_member_change_password(String loginId, String oldPass, String newPass) {
+	void should_change_password(String loginId, String oldPass, String newPass) {
 		// Business Method Execution
 		var result = service.changePassword(loginId, oldPass, newPass);
 
@@ -171,7 +171,7 @@ public class MemberServiceTest {
 		"kokooo,kokoo,KOKOOO",
 		"aungaung,aungaun,AUNGAUNG"
 	})
-	void test_member_change_password_error(String loginId, String oldPass, String newPass) {
+	void should_not_change_password_with_different_old_password(String loginId, String oldPass, String newPass) {
 		// Business Method Execution
 		var exception = assertThrows(ProjectDbException.class, () -> service.changePassword(loginId, oldPass, newPass));
 		
@@ -185,7 +185,7 @@ public class MemberServiceTest {
 		"kokooo,kokooo,kokooo",
 		"aungaung,aungaung,aungaung"
 	})
-	void test_member_change_with_same_password(String loginId, String oldPass, String newPass) {
+	void should_not_change_with_same_passwords(String loginId, String oldPass, String newPass) {
 		// Business Method Execution
 		var exception = assertThrows(ProjectDbException.class, () -> service.changePassword(loginId, oldPass, newPass));
 		
@@ -199,7 +199,7 @@ public class MemberServiceTest {
 		"kokooo,true",
 		"aungaung,false"
 	})
-	void test_member_change_state(String loginId, boolean active) {
+	void should_change_state(String loginId, boolean active) {
 		// Business Method Execution
 		var result = service.changeState(loginId, active);
 
@@ -210,7 +210,7 @@ public class MemberServiceTest {
 	@Order(11)
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3, 4, 5})
-	void test_member_delete(int id) {
+	void should_delete_with_id(int id) {
 		// Business Method Execution
 		var result = service.delete(id);
 
@@ -225,7 +225,7 @@ public class MemberServiceTest {
 		"Admin,1",
 		"Member,5"
 	})
-	void test_search_by_role_only(Role role, int count) {
+	void should_search_by_role_only(Role role, int count) {
 		
 		// Business Method Execution
 		var list = service.search(role, null, null);
@@ -240,7 +240,7 @@ public class MemberServiceTest {
 		"Admin,Aung Aung,0",
 		"Member,Aung Aung, 1"
 	})
-	void test_search_by_role_and_name_like(Role role, String name, int count) {
+	void should_search_by_role_and_name_like(Role role, String name, int count) {
 		// Business Method Execution
 		var list = service.search(role, name, null);
 		
@@ -254,7 +254,7 @@ public class MemberServiceTest {
 		"true,3",
 		"false,3"
 	})
-	void test_search_by_status(boolean status, int count) {
+	void should_search_by_status(boolean status, int count) {
 		
 		// Business Method Execution
 		var list = service.search(null, null, status);
