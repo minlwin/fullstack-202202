@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.jdc.balance.model.domain.form.SignUpForm;
+
 @Entity
 public class User implements Serializable{
 
@@ -27,6 +29,17 @@ public class User implements Serializable{
 	private String phone;
 	private String email;
 	private boolean active;
+	
+	public User() {
+	}
+	
+	public User(SignUpForm signUp) {
+		this.name = signUp.getName();
+		this.loginId = signUp.getLoginId();
+		this.password = signUp.getPassword();
+		this.active = true;
+		this.role = Role.Member;
+	}
 
 	public enum Role {
 		Admin, Member

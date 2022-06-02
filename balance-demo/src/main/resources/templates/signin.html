@@ -17,6 +17,8 @@
 			<div class="card-header"><i class="bi-person-check"></i> Sign In</div>
 			
 			<div class="card-body">
+			
+				<div th:if="${param.error != null}" class="alert alert-info">Please Check Login Information.</div>
 				
 				<div class="mb-3">
 					<label for="login">Login Id</label>

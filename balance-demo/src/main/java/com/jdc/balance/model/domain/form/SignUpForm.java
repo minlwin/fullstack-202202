@@ -1,9 +1,14 @@
 package com.jdc.balance.model.domain.form;
 
+import javax.validation.constraints.NotBlank;
+
 public class SignUpForm {
 
+	@NotBlank(message = "Enter Member Name.")
 	private String name;
+	@NotBlank(message = "Enter Login Id.")
 	private String loginId;
+	@NotBlank(message = "Enter Password.")
 	private String password;
 
 	public String getName() {
@@ -30,4 +35,10 @@ public class SignUpForm {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "SignUpForm [name=" + name + ", loginId=" + loginId + ", password=" + password + "]";
+	}
+
+	
 }
