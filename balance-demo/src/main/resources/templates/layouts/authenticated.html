@@ -29,7 +29,7 @@
 					<a th:href="@{/user/balance/expenses}" class="list-group-item"><i class="bi-arrow-down-circle"></i> Expenses</a>
 					<a th:href="@{/admin/users}" class="list-group-item"><i class="bi-people"></i> User Management</a>
 					<a href="#" data-bs-toggle="modal" data-bs-target="#changePassword" class="list-group-item"><i class="bi-key"></i> Change Password</a>
-					<a href="#" class="list-group-item"><i class="bi-door-open"></i> Logout</a>
+					<a href="#" id="signoutLink" class="list-group-item"><i class="bi-door-open"></i> Logout</a>
 				</div>
 			
 			</div>
@@ -43,6 +43,10 @@
 	
 	</div>
 
-	<div th:replace="/fragments/modals :: changePass" id="changePassContainer"></div>
+	<div th:replace="/fragments/modals :: changePass"></div>
+	
+	<div th:replace="/fragments/forms :: signout"></div>
+	
+	
 </body>
 </html>

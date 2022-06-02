@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="signout" class="d-hone">
+		
+		<form th:action="@{/signout}" method="post" id="signoutForm"></form>
+		<script th:src="@{/resources/js/common.js}"></script>
+	</div>
+
+</body>
+</html>
