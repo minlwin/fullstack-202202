@@ -8,14 +8,14 @@ public class Project {
 	private String name;
 	private String description;
 	private int managerId;
-	private int managerName;
-	private int managerLogin;
+	private String managerName;
+	private String managerLogin;
 	private LocalDate startDate;
 	private int months;
-	
+
 	public Project() {
 	}
-	
+
 	public Project(String name, String description, int managerId, LocalDate startDate, int months) {
 		super();
 		this.name = name;
@@ -57,19 +57,19 @@ public class Project {
 		this.managerId = managerId;
 	}
 
-	public int getManagerName() {
+	public String getManagerName() {
 		return managerName;
 	}
 
-	public void setManagerName(int managerName) {
+	public void setManagerName(String managerName) {
 		this.managerName = managerName;
 	}
 
-	public int getManagerLogin() {
+	public String getManagerLogin() {
 		return managerLogin;
 	}
 
-	public void setManagerLogin(int managerLogin) {
+	public void setManagerLogin(String managerLogin) {
 		this.managerLogin = managerLogin;
 	}
 

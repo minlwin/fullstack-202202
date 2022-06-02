@@ -14,6 +14,18 @@ public class ProjectServiceTestUtils {
 		
 		var array = csv.split(",");
 		
+		if(array.length == 8) {
+			var dto = new Project();
+			dto.setId(integer(array[0]));
+			dto.setName(array[1]);
+			dto.setDescription(array[2]);
+			dto.setManagerId(integer(array[3]));
+			dto.setStartDate(localDate(array[4]));
+			dto.setMonths(integer(array[5]));
+			dto.setManagerName(array[6]);
+			return dto;
+		}
+		
 		if(array.length == 6) {
 			return new Project(
 					array[1], 

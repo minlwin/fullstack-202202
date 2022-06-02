@@ -2,8 +2,11 @@ package com.jdc.project.test.service;
 
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -19,10 +22,7 @@ import static com.jdc.project.test.utils.ProjectServiceTestUtils.*;
 
 @TestMethodOrder(OrderAnnotation.class)
 @SpringJUnitConfig(locations = "classpath:application.xml")
-@Sql({
-	"classpath:/members.sql",
-	"classpath:/projects.sql"
-})
+@Sql("classpath:/projects.sql")
 public class ProjectServiceTest {
 
 	@Autowired
@@ -67,7 +67,7 @@ public class ProjectServiceTest {
 	}
 	
 	@Disabled
-	@Order(2)
+	@Order(3)
 	@ParameterizedTest
 	@ValueSource(strings = {
 			"Test Project 1,Just Testing,,20220602,6",
@@ -80,7 +80,7 @@ public class ProjectServiceTest {
 	}
 	
 	@Disabled
-	@Order(2)
+	@Order(4)
 	@ParameterizedTest
 	@ValueSource(strings = {
 			"Test Project 1,Just Testing,3,,6",
@@ -90,6 +90,63 @@ public class ProjectServiceTest {
 	void should_not_create_no_start(String csv) {
 		var exception = assertThrows(ProjectDbException.class, () -> service.create(dto(csv)));
 		assertEquals(noStartDate, exception.getMessage());
+	}
+	
+	@Order(5)
+	@ParameterizedTest
+	@ValueSource(strings = {
+			"1,Book Store,Shopping System,2,2022-05-10,6,Aung Aung,aungaung",
+			"2,Project DB,Project Management System,3,2022-04-01,12,Aung Naing,aungnaing",
+			"3,Smart Kitchen,Restaurant Management System,4,2022-02-15,9,Thiha,thiha",
+			"4,Doctor Help,Clinick Management System,2,2022-05-10,6,Aung Aung,aungaung",
+			"5,Order Me,Order Management System,2,2022-05-10,18,Aung Aung,aungaung",
+			"6,The Movies,Movies Informations Provider,3,2022-05-10,6,Aung Naing,aungnaing"
+	})
+	void should_found_with_id(String csv) {
+		var id = id(csv);
+		var dto = dto(csv);
+		
+		var result = service.findById(id);
+		
+		assertNotNull(result);
+		
+		assertEquals(dto.getId(), result.getId());
+		assertEquals(dto.getName(), result.getName());
+		assertEquals(dto.getDescription(), result.getDescription());
+		assertEquals(dto.getManagerId(), result.getManagerId());
+		assertEquals(dto.getManagerLogin(), result.getManagerLogin());
+		assertEquals(dto.getManagerName(), result.getManagerName());
+		assertEquals(dto.getStartDate(), result.getStartDate());
+		assertEquals(dto.getMonths(), result.getMonths());
+		
+	}
+
+	@Order(6)
+	@ParameterizedTest
+	@CsvSource
+	void should_search_correctly(String project, String manager, LocalDate dateFrom, LocalDate dateTo, int size) {
+		
+		var list = service.search(project, manager, dateFrom, dateTo);
+		
+		assertNotNull(list);
+		assertEquals(size, list.size());
+	}
+	
+	@Order(7)
+	@ParameterizedTest
+	@CsvSource
+	void should_updated(int id, String name, String description, LocalDate startDate, int month, int expected) {
+		
+		var result = service.update(id, name, description, startDate, month);
+		assertEquals(expected, result);
+	}
+	
+	@Order(8)
+	@ParameterizedTest
+	@CsvSource
+	void should_deleted(int id, int expected) {
+		int result = service.deleteById(id);
+		assertEquals(expected, result);
 	}
 	
 }
