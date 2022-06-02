@@ -13,6 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
@@ -27,6 +28,16 @@ public class MemberServiceTest {
 	
 	@Autowired
 	MemberService service;
+	
+	@Value("${member.duplicate.login}")
+	private String duplicatePassword;
+	@Value("${member.empty.name}")
+	private String noName;
+	@Value("${member.empty.login}")
+	private String noLoginId;
+	@Value("${member.empty.password}")
+	private String noPassword;
+
 
 	@Order(1)
 	@ParameterizedTest
@@ -61,7 +72,7 @@ public class MemberServiceTest {
 		var exception = assertThrows(ProjectDbException.class, () -> service.create(dto));
 		
 		// Check Result
-		assertEquals("Please enter member name.", exception.getMessage());
+		assertEquals(noName, exception.getMessage());
 	}
 	
 	@Order(3)
@@ -78,7 +89,7 @@ public class MemberServiceTest {
 		var exception = assertThrows(ProjectDbException.class, () -> service.create(dto));
 		
 		// Check Result
-		assertEquals("Please enter login id.", exception.getMessage());
+		assertEquals(noLoginId, exception.getMessage());
 	}
 	
 	@Order(4)
@@ -95,7 +106,7 @@ public class MemberServiceTest {
 		var exception = assertThrows(ProjectDbException.class, () -> service.create(dto));
 		
 		// Check Result
-		assertEquals("Please enter password.", exception.getMessage());
+		assertEquals(noPassword, exception.getMessage());
 	}
 	
 	@Order(5)
@@ -112,7 +123,7 @@ public class MemberServiceTest {
 		var exception = assertThrows(ProjectDbException.class, () -> service.create(dto));
 		
 		// Check Result
-		assertEquals("Duplicate login id. Please change your login id.", exception.getMessage());
+		assertEquals(duplicatePassword, exception.getMessage());
 	}
 	
 	@Order(6)

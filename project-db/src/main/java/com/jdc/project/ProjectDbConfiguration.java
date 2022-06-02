@@ -1,4 +1,4 @@
-package com.jdc.project.model;
+package com.jdc.project;
 
 import javax.sql.DataSource;
 
@@ -12,7 +12,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 @Configuration
-@PropertySource("classpath:db-config.properties")
+@PropertySource({
+	"classpath:db-config.properties",
+	"classpath:messages.properties"
+})
 public class ProjectDbConfiguration {
 
 	@Bean

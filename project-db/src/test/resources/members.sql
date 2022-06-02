@@ -1,5 +1,8 @@
 set foreign_key_checks = 0;
 
+truncate table assignment;
+truncate table task;
+truncate table project;
 truncate table member;
 
 insert into member(name, login_id, password, role, active) values ('Ko Ko Oo', 'kokooo', 'kokooo', 'Admin', 1);

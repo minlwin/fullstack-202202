@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,6 +18,7 @@ import com.jdc.project.model.ProjectDbException;
 import com.jdc.project.model.dto.Member;
 import com.jdc.project.model.dto.Member.Role;
 import com.jdc.project.model.dto.MemberVO;
+import com.jdc.project.model.service.utils.MemberHelper;
 
 @Service
 public class MemberService {
@@ -25,8 +27,15 @@ public class MemberService {
 	private SimpleJdbcInsert memberInsert;
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	@Autowired
+	private MemberHelper helper;
+	
+	@Value("${member.duplicate.login}")
+	private String duplicatePassword;
+
 
 	private RowMapper<Member> rowMapper;
+	
 
 	public MemberService() {
 		rowMapper = new BeanPropertyRowMapper<>(Member.class);
@@ -34,10 +43,19 @@ public class MemberService {
 
 	public int create(Member dto) {
 		try {
-			validate(dto);
-			return memberInsert.executeAndReturnKey(params(dto)).intValue();
+			// Validate Inputs
+			helper.validate(dto);
+			
+			// Get Insert Parameters
+			var params = helper.insertParams(dto);
+			
+			// Insert into DB
+			var result = memberInsert.executeAndReturnKey(params);
+			
+			// Return ID
+			return result.intValue();
 		} catch (DuplicateKeyException e) {
-			throw new ProjectDbException("Duplicate login id. Please change your login id.", e);
+			throw new ProjectDbException(duplicatePassword, e);
 		}
 	}
 
@@ -99,35 +117,5 @@ public class MemberService {
 
 		return template.queryForStream(sb.toString(), params, rowMapper).map(a -> (MemberVO)a).toList();
 	}
-
-
-	private void validate(Member dto) {
-		if (null == dto) {
-			throw new ProjectDbException("Member must not be null.");
-		}
-
-		if (!StringUtils.hasLength(dto.getName())) {
-			throw new ProjectDbException("Please enter member name.");
-		}
-
-		if (!StringUtils.hasLength(dto.getLoginId())) {
-			throw new ProjectDbException("Please enter login id.");
-		}
-
-		if (!StringUtils.hasLength(dto.getPassword())) {
-			throw new ProjectDbException("Please enter password.");
-		}
-	}
-
-	private Map<String, Object> params(Member dto) {
-		var map = new HashMap<String, Object>();
-		map.put("name", dto.getName());
-		map.put("login_id", dto.getLoginId());
-		map.put("password", dto.getPassword());
-		map.put("role", dto.getRole());
-		map.put("active", dto.isActive());
-		return map;
-	}
-
 
 }
