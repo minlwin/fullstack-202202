@@ -13,12 +13,12 @@ public class BalanceDemoSecurityConfig {
 	@Bean
 	SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
 		
-		http.formLogin(form -> form.loginPage("/signin").defaultSuccessUrl("/home"));
+		http.formLogin(form -> form.loginPage("/signin").defaultSuccessUrl("/"));
 		
-		http.logout(logout -> logout.logoutUrl("/signout").logoutSuccessUrl("/home"));
+		http.logout(logout -> logout.logoutUrl("/signout").logoutSuccessUrl("/"));
 		
 		http.authorizeHttpRequests(auth -> auth
-			.mvcMatchers("/signin", "/signup", "/home").permitAll()
+			.mvcMatchers("/signin", "/signup", "/").permitAll()
 			.mvcMatchers("/user/**").hasAnyAuthority(Role.Member.name(), Role.Admin.name())
 			.mvcMatchers("/admin/**").hasAuthority(Role.Admin.name())
 			.anyRequest().authenticated());

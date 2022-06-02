@@ -11,6 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("user/balance")
 public class BalanceController {
 	
+	@GetMapping("{type}")
+	String incomes(ModelMap model, @PathVariable String type) {
+		model.put("title", "incomes".equals(type) ? "Income Management" : "Expense Management");
+		model.put("type", type);
+		return "balance-list";
+	}
+	
+	
 	@GetMapping("add/{type}")
 	public String addNew(@PathVariable String type, ModelMap model) {
 		model.put("title", "incomes".equals(type) ? "Add New Income" : "Add New Expense");
