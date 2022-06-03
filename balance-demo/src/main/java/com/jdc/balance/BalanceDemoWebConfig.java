@@ -13,6 +13,7 @@ public class BalanceDemoWebConfig implements WebMvcConfigurer{
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/signin").setViewName("signin");
+		registry.addViewController("/denied-page").setViewName("denied-page");
 	}
 
 	@Override

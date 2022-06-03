@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">Balance</title>
@@ -27,7 +28,7 @@
 					<a th:href="@{/user/balance}" class="list-group-item"><i class="bi-bar-chart"></i> Balance Report</a>
 					<a th:href="@{/user/balance/incomes}" class="list-group-item"><i class="bi-arrow-up-circle"></i> Incomes</a>
 					<a th:href="@{/user/balance/expenses}" class="list-group-item"><i class="bi-arrow-down-circle"></i> Expenses</a>
-					<a th:href="@{/admin/users}" class="list-group-item"><i class="bi-people"></i> User Management</a>
+					<a sec:authorize="hasAuthority('Admin')" th:href="@{/admin/users}" class="list-group-item"><i class="bi-people"></i> User Management</a>
 					<a href="#" data-bs-toggle="modal" data-bs-target="#changePassword" class="list-group-item"><i class="bi-key"></i> Change Password</a>
 					<a href="#" id="signoutLink" class="list-group-item"><i class="bi-door-open"></i> Logout</a>
 				</div>

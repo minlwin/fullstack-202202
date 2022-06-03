@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/authenticated.html}">
+<head>
+<meta charset="UTF-8">
+<title>Access Denied</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		
+		<div class="card">
+			
+			<div class="card-header">Access Denied</div>
+			
+			<div class="card-body">
+			
+				<img th:src="@{/resources/images/denied.jpg}" class="img-fluid" alt="" />			
+				<p>You have no authority to do this.</p>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+
+</body>
+</html>

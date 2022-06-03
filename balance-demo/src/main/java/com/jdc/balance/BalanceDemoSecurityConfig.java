@@ -30,6 +30,8 @@ public class BalanceDemoSecurityConfig {
 			.mvcMatchers("/admin/**").hasAuthority(Role.Admin.name())
 			.anyRequest().authenticated());
 		
+		http.exceptionHandling().accessDeniedPage("/denied-page");
+		
 		return http.build();
 	}
 
