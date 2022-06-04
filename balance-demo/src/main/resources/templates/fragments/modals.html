@@ -52,5 +52,51 @@
 	
 	</div>
 	
+	
+	<!-- Change Password Fragment -->
+	<div id="contactModal" class="modal fade" tabindex="-1" aria-hidden="true" th:fragment="contactForm">
+		
+		<div class="modal-dialog">
+		
+			<form th:action="@{/user/profile/contact}" method="post" class="modal-content">
+			
+				<div class="modal-header">
+					<h5><i class="bi-cursor"></i> Contact Information</h5>
+				</div>
+				
+				<div class="modal-body">
+					
+					<div class="mb-3">
+						<label for="oldPass" class="mb-1">Phone Number</label>
+						<div class="input-group">
+							<span class="input-group-text">
+								<i class="bi-telephone"></i>
+							</span>
+							<input type="tel" name="phone" placeholder="Enter Phone Number" class="form-control" id="oldPass" />
+						</div>
+					</div>
+				
+					<div class="mb-3">
+						<label for="newPass" class="mb-1">Email Address</label>
+						<div class="input-group">
+							<span class="input-group-text">
+								<i class="bi-envelope"></i>
+							</span>
+						<input type="email" name="email" placeholder="Enter Email Address" class="form-control" id="newPass" />
+						</div>
+					</div>
+
+				</div>
+				
+				<div class="modal-footer">
+					<button class="btn btn-primary"><i class="bi-save"></i> Save Contact</button>
+				</div>
+				
+			</form>
+		
+		</div>
+	
+	</div>	
+	
 </body>
 </html>

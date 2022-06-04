@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html thyxmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" 
+	layout:decorate="~{/layouts/authenticated.html}">
+<head>
+<meta charset="UTF-8">
+<title>Profile</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	
+		<div class="row mb-4">
+			
+			<div class="col">
+				
+				<div class="card">
+					<div class="card-header"><i class="bi-person-circle"></i> Profile</div>
+					<div class="card-body">
+						
+						<div class="input-group mb-2">
+							<span class="input-group-text">
+								<i class="bi-person"></i>
+							</span>
+							<span class="form-control" th:text="${user.name}">User Name</span>
+						</div>
+
+						<div class="input-group">
+							<span class="input-group-text">
+								<i class="bi-lock"></i>
+							</span>
+							<span class="form-control" th:text="${user.loginId}">Login Id</span>
+						</div>
+					
+					</div>
+				</div>
+			
+			</div>
+		
+			<div class="col">
+				
+				<div class="card">
+					<div class="card-header d-flex justify-content-between">
+						
+						<span>
+							<i class="bi-cursor"></i> Contact
+						</span>	
+						
+						<a href="#" data-bs-toggle="modal" data-bs-target="#contactModal" ><i class="bi-pencil"></i></a>
+						
+					</div>
+					<div class="card-body">
+						<div class="input-group mb-2">
+							<span class="input-group-text">
+								<i class="bi-telephone"></i>
+							</span>
+							<span class="form-control" th:text="${user.phone} ?: 'Undefine'">Phone</span>
+						</div>
+
+						<div class="input-group">
+							<span class="input-group-text">
+								<i class="bi-envelope"></i>
+							</span>
+							<span class="form-control" th:text="${user.email} ?: 'Undefine'">Email</span>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+
+		</div>
+		
+		
+		<div class="card">
+		
+			<div class="card-header"><i class="bi-door-open"></i> Access Logs</div>
+			
+			<div class="card-body">
+				
+				<table class="table table-striped">
+				
+					<thead>
+						<tr>
+							<th>Access Type</th>
+							<th>Times</th>
+							<th>Remark</th>
+						</tr>
+					</thead>
+				</table>
+			
+			</div>
+		</div>
+	
+		<div th:replace="/fragments/modals :: contactForm"></div>
+	
+	</div>
+	
+
+</body>
+</html>
