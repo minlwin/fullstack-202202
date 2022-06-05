@@ -64,6 +64,11 @@ public class UserService {
 
 		return userRepo.findAll(spec).stream().map(UserVo::new).toList();
 	}
+
+	@Transactional
+	public void changeStatus(int id, boolean status) {
+		userRepo.findById(id).ifPresent(user -> user.setActive(status));
+	}
 	
 
 }

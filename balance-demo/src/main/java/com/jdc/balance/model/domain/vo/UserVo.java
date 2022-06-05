@@ -20,6 +20,7 @@ public class UserVo {
 		this.name = entity.getName();
 		this.phone = entity.getPhone();
 		this.email = entity.getEmail();
+		this.status = entity.isActive();
 	}
 
 	public int getId() {

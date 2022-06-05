@@ -98,5 +98,49 @@
 	
 	</div>	
 	
+	
+	<!-- userStatusChange -->
+	<div id="userStatusChangeModal" class="modal fade" tabindex="-1" aria-hidden="true" th:fragment="userStatusChange">
+		
+		<div class="modal-dialog">
+		
+			<form th:action="@{/admin/users/status}" method="post" class="modal-content">
+			
+				<input id="changeUserId" type="hidden" name="id" />
+				<input id="changeUserStatus" type="hidden" name="status">
+			
+				<div class="modal-header">
+					<h5><i class="bi-shield"></i> Change Status</h5>
+				</div>
+				
+				<div class="modal-body">
+					
+					<div class="mb-3">
+						<label for="oldPass" class="mb-1">User Name</label>
+						<span id="changeUserName" class="form-control"></span>
+					</div>
+				
+					<div class="mb-3">
+						<label for="oldPass" class="mb-1">Last Status</label>
+						<span id="changeUserStatusBefore" class="form-control"></span>
+					</div>
+
+					<div class="mb-3">
+						<label for="oldPass" class="mb-1">Change Status</label>
+						<span id="changeUserStatusAfter" class="form-control"></span>
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<button class="btn btn-primary"><i class="bi-save"></i> OK</button>
+				</div>
+				
+			</form>
+		
+		</div>
+	
+	</div>		
+	
+	
 </body>
 </html>

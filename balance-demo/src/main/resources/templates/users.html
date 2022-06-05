@@ -60,18 +60,21 @@
 				<tr th:each="user : ${list}" class="align-middle">
 					<td th:text="${user.id}">1</td>
 					<td th:text="${user.name}">Aung Aung</td>
-					<td th:text="${user.status}">Active</td>
+					<td th:text="${user.status} ? 'Active' : 'Suspend'">Active</td>
 					<td th:text="${user.phone}">09778999999</td>
 					<td th:text="${user.email}">aung@gmail.com</td>
 					<td>
-						<a href="#" class="btn btn-link">
-							<i class="bi-trash"></i>
+						<a href="#" th:attr="data-id=${user.id},data-status=${user.status},data-user=${user.name}" class="btn btn-link userStatusChangeLink">
+							<i th:if="${user.status}" class="bi-trash"></i>
+							<i th:unless="${user.status}" class="bi-check"></i>
 						</a>
 					</td>				
 				</tr>
 			</tbody>
 		
 		</table>
+		
+		<div th:replace="/fragments/modals :: userStatusChange"></div>
 	
 	</div>
 
