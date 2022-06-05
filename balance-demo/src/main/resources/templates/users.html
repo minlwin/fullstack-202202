@@ -16,22 +16,22 @@
 			
 			<div class="card-body">
 				
-				<form action="" class="row">
+				<form class="row">
 				
 					<div class="col-3">
 						<select name="status" id="status" class="form-select">
-							<option value="">All User</option>
-							<option value="Active">Active</option>
-							<option value="Removed">Removed</option>
+							<option th:selected="${#strings.equals(param.status, '')}" value="">All User</option>
+							<option th:selected="${#strings.equals(param.status, 'true')}" value="true">Active</option>
+							<option th:selected="${#strings.equals(param.status, 'false')}" value="false">Removed</option>
 						</select>
 					</div>
 				
 					<div class="col-auto">
-						<input type="text" class="form-control" placeholder="Name" />
+						<input name="name" type="text" class="form-control" th:value="${param.name}" placeholder="Search Name" />
 					</div>
 					
 					<div class="col-auto">
-						<input type="date" class="form-control"  />
+						<input name="phone" type="tel" class="form-control" th:value="${param.phone}" placeholder="Search Phone"  />
 					</div>
 					
 					<div class="col">
@@ -57,12 +57,12 @@
 			</thead>
 			
 			<tbody>
-				<tr class="align-middle">
-					<td>1</td>
-					<td>Aung Aung</td>
-					<td>Active</td>
-					<td>09778999999</td>
-					<td>aung@gmail.com</td>
+				<tr th:each="user : ${list}" class="align-middle">
+					<td th:text="${user.id}">1</td>
+					<td th:text="${user.name}">Aung Aung</td>
+					<td th:text="${user.status}">Active</td>
+					<td th:text="${user.phone}">09778999999</td>
+					<td th:text="${user.email}">aung@gmail.com</td>
 					<td>
 						<a href="#" class="btn btn-link">
 							<i class="bi-trash"></i>
