@@ -81,13 +81,22 @@
 				
 					<thead>
 						<tr>
+							<th>Access Time</th>
 							<th>Access Type</th>
-							<th>Times</th>
-							<th>Remark</th>
+							<th>Error Message</th>
 						</tr>
 					</thead>
+					
+					<tbody>
+						<tr th:each="item : ${list}">
+							<td th:text="${#temporals.format(item.accessTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+							<td th:text="${item.type}"></td>
+							<td th:text="${item.errorMessage}"></td>
+						</tr>
+					</tbody>
 				</table>
-			
+
+				<div th:include="/fragments/components :: pagination(${pagination})"></div>
 			</div>
 		</div>
 	
