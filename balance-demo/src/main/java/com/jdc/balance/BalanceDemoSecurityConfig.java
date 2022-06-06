@@ -1,11 +1,14 @@
 package com.jdc.balance;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import com.jdc.balance.model.domain.entity.User.Role;
 
@@ -33,6 +36,16 @@ public class BalanceDemoSecurityConfig {
 		http.exceptionHandling().accessDeniedPage("/denied-page");
 		
 		return http.build();
+	}
+	
+	@Bean
+	AuthenticationEventPublisher authenticationEventPublisher() {
+		return new DefaultAuthenticationEventPublisher();
+	}
+	
+	@Bean
+	HttpSessionEventPublisher httpSessionEventPublisher() {
+		return new HttpSessionEventPublisher();
 	}
 
 }
