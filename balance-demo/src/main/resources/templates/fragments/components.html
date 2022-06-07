@@ -9,26 +9,32 @@
 	<div th:fragment="pagination(page)">
 	
 		<div class="d-flex justify-content-end">
-
-			<a th:href="@{${page.url}(page=0)}" th:classappend="${page.first} ? 'disabled'" class="btn btn-outline-secondary me-1">
+			
+			<div class="col-auto me-2">
+				<select id="pageSizeChangeSelect" th:if="${#lists.size(page.sizes) gt 0}" th:attr="data-form-id=${page.sizeChageFormId}" class="form-select">
+					<option th:each="size : ${page.sizes}" th:selected="${#strings.equals(size, param.size)}" th:value="${size}" th:text="${size}"></option>
+				</select>
+			</div>
+		
+			<a th:href="@{${page.url}(page=0)} + ${page.params}" th:classappend="${page.first} ? 'disabled'" class="btn btn-outline-secondary me-1">
 				<i class="bi-skip-backward"></i>
 			</a>
 
-			<a th:href="@{${page.url}(page=${page.current - 1})}" th:classappend="${page.first} ? 'disabled'" class="btn btn-outline-secondary me-1">
+			<a th:href="@{${page.url}(page=${page.current - 1})} + ${page.params}" th:classappend="${page.first} ? 'disabled'" class="btn btn-outline-secondary me-1">
 				<i class="bi-skip-start"></i>
 			</a>
 			
 			
 			<a th:each="pageNum : ${page.pages}" 
-				th:text="${pageNum + 1}" th:href="@{${page.url}(page = ${pageNum})}" 
+				th:text="${pageNum + 1}" th:href="@{${page.url}(page = ${pageNum})} + ${page.params}" 
 				th:classappend="${page.current == pageNum} ? 'disabled btn-secondary' : 'btn-outline-secondary' "
 				class="btn me-1">1</a>
 
-			<a th:href="@{${page.url}(page=${page.current + 1})}"  th:classappend="${page.last} ? 'disabled'" class="btn btn-outline-secondary me-1">
+			<a th:href="@{${page.url}(page=${page.current + 1})} + ${page.params}"  th:classappend="${page.last} ? 'disabled'" class="btn btn-outline-secondary me-1">
 				<i class="bi-skip-end"></i>
 			</a>
 
-			<a th:href="@{${page.url}(page=${page.total - 1})}"  th:classappend="${page.last} ? 'disabled'" class="btn btn-outline-secondary">
+			<a th:href="@{${page.url}(page=${page.total - 1})} + ${page.params}"  th:classappend="${page.last} ? 'disabled'" class="btn btn-outline-secondary">
 				<i class="bi-skip-forward"></i>
 			</a>
 		</div>

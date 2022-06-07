@@ -17,4 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			const dialog = new bootstrap.Modal('#userStatusChangeModal')
 			dialog.show()
 		}))
+		
+	const pageSizeChageSelect = document.getElementById('pageSizeChangeSelect')
+	if(pageSizeChageSelect) {
+		pageSizeChageSelect.addEventListener('change', () => {
+			const formId = pageSizeChageSelect.getAttribute('data-form-id')
+			const size = pageSizeChageSelect.value
+			
+			const form = document.getElementById(formId)
+			
+			const sizeInput = document.createElement('input')
+			sizeInput.setAttribute('type', 'hidden')
+			sizeInput.setAttribute('name', 'size')
+			sizeInput.setAttribute('value', size)
+
+			form.appendChild(sizeInput)
+			
+			form.submit()
+		})
+	}
 })

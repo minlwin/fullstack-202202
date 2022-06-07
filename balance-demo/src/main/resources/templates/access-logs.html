@@ -17,7 +17,7 @@
 				<i class="bi-shield"></i> Access Logs
 			</div>
 			
-			<form th:action="@{/admin/accesses}" class="card-body row">
+			<form id="accessLogSearchForm" th:action="@{/admin/accesses}" class="card-body row">
 				
 				<div class="col-auto">
 					<select name="type" class="form-select">
@@ -67,6 +67,8 @@
 			</tbody>
 		
 		</table>
+		
+		<div th:include="/fragments/components :: pagination(${pager})"></div>
 	
 	</div>
 
