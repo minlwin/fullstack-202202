@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.balance.controller.utils.Pagination;
+import com.jdc.balance.model.service.UserAccessLogService;
 import com.jdc.balance.model.service.UserService;
-import com.jdc.balance.security.UserAccessLogService;
 
 @Controller
 @RequestMapping("user/profile")

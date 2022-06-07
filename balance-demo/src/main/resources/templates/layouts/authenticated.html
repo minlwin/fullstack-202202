@@ -28,7 +28,10 @@
 					<a th:href="@{/user/balance}" class="list-group-item"><i class="bi-bar-chart"></i> Balance Report</a>
 					<a th:href="@{/user/balance/incomes}" class="list-group-item"><i class="bi-arrow-up-circle"></i> Incomes</a>
 					<a th:href="@{/user/balance/expenses}" class="list-group-item"><i class="bi-arrow-down-circle"></i> Expenses</a>
+
 					<a sec:authorize="hasAuthority('Admin')" th:href="@{/admin/users}" class="list-group-item"><i class="bi-people"></i> User Management</a>
+					<a sec:authorize="hasAuthority('Admin')" th:href="@{/admin/accesses}" class="list-group-item"><i class="bi-shield"></i> Access Logs</a>
+
 					<a sec:authorize="hasAuthority('Member')" th:href="@{/user/profile}" class="list-group-item">
 						<i class="bi-person-circle"></i> Profile
 					</a>
