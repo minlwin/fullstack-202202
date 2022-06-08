@@ -20,6 +20,10 @@ public class Pagination {
 	private List<Integer> pages;
 	private List<Integer> sizes;
 	private String sizeChageFormId;
+	
+	public boolean isShow() {
+		return pages.size() > 1;
+	}
 
 	public static Builder builder(String url) {
 		return new Builder(url);

@@ -20,18 +20,18 @@
 				<form action="#" class="row">
 				
 					<div class="col-auto">
-						<input type="date" name="dateFrom" class="form-control" />
+						<input type="date" name="dateFrom" th:value="${param.dateFrom}" class="form-control" />
 					</div>
 					
 					<div class="col-auto">
-						<input type="date" name="dateTo" class="form-control" />
-					</div>
-					
-					<div class="col-3">
-						<input type="text" placeholder="Category" class="form-control" />
+						<input type="date" name="dateTo" th:value="${param.dateTo}" class="form-control" />
 					</div>
 					
 					<div class="col">
+						<input type="text" name="keyword" th:value="${param.keyword}" placeholder="Search Keyword" class="form-control" />
+					</div>
+					
+					<div class="col-auto">
 						<button class="btn btn-primary"><i class="bi-search"></i> Search</button>
 						<a th:href="@{'/user/balance/add/' + ${type}}" class="btn btn-danger"><i class="bi-plus"></i> Add New</a>
 					</div>
@@ -49,27 +49,40 @@
 				<tr>
 					<th>Date</th>
 					<th>Category</th>
-					<th>Remark</th>
-					<th class="text-end">Amount</th>
+					<th>Item</th>
+					<th class="text-end">Unit Price</th>
+					<th class="text-end">Quantity</th>
+					<th class="text-end">Total</th>
 					<th></th>
 				</tr>
 			</thead>
 			
 			<tbody>
-				<tr>
-					<td>2022/05/10</td>
-					<td>Student Fees</td>
-					<td>Java Basic Online Course</td>
-					<td class="text-end">
-						<a class="text-decoration-none" th:href="@{/user/balance/1}" >150,000</a>
+				<tr th:each="item : ${list}">
+					<td th:text="${#temporals.format(item.balance.date, 'yyyy-MM-dd')}">2022/05/10</td>
+					<td th:text="${item.balance.category}">Student Fees</td>
+					<td th:text="${item.item}">Java Basic Online Course</td>
+					<td th:text="${#numbers.formatInteger(item.unitPrice))}" class="text-end">
+						150,000
+					</td>
+					<td th:text="${item.quantity}" class="text-end">
+						10
+					</td>
+					<td th:text="${#numbers.formatInteger(item.unitPrice * item.quantity)}" class="text-end">
+						1,500,000
 					</td>
 					<td>
+						<a href="#" class="btn btn-link">
+							<i class="bi-list"></i>
+						</a>
 					</td>
 				</tr>
 				
 			</tbody>
 		
 		</table>
+		
+		<div th:include="/fragments/components :: pagination(${pagination})"></div>
 	
 	</div>
 
