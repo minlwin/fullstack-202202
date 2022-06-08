@@ -1,7 +1,11 @@
 package com.jdc.balance.model.domain.form;
 
-public class BalanceItemForm {
+import java.io.Serializable;
 
+public class BalanceItemForm implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String item;
 	private int unitPrice;

@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import com.jdc.balance.model.domain.entity.Balance.Type;
 import com.jdc.balance.model.domain.entity.BalanceItem;
+import com.jdc.balance.model.domain.form.BalanceEditForm;
 import com.jdc.balance.model.repo.BalanceItemRepo;
 
 @Service
@@ -57,6 +58,11 @@ public class BalanceService {
 		}
 
 		return itemRepo.findAll(spec, pageInfo);
+	}
+
+	public BalanceEditForm featchForm(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

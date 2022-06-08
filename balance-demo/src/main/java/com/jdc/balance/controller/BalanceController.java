@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,26 +64,6 @@ public class BalanceController {
 	}
 	
 	
-	@GetMapping("add/{type}")
-	public String addNew(ModelMap model, @PathVariable Type type) {
-		model.put("title", "%s Management".formatted(type));
-		model.put("type", type);
-		return "balance-edit";
-	}
-
-	@GetMapping("edit/{id:\\d+}")
-	public String edit(@PathVariable int id, ModelMap model) {
-		model.put("title", "Edit Income");
-		model.put("type", "incomes");
-		return "balance-edit";
-	}
-
-	@PostMapping
-	public String save() {
-		// TODO implement here
-		return "redirect:/user/balance/%d".formatted(1);
-	}
-
 	@GetMapping("{id:\\d+}")
 	public String findById(@PathVariable int id) {
 		System.out.println("Balance Id : %d".formatted(id));
