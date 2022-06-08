@@ -9,8 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jdc.balance.model.domain.entity.User.Role;
+import com.jdc.balance.model.domain.form.ChangePasswordForm;
 import com.jdc.balance.model.domain.form.SignUpForm;
 import com.jdc.balance.model.service.UserService;
 
@@ -51,7 +53,10 @@ public class SecurityController {
 	}
 
 	@PostMapping("user/changepass")
-	public String changePass() {
+	public String changePass(@ModelAttribute ChangePasswordForm form, RedirectAttributes redirect) {
+		
+		userService.changePassword(form);
+		redirect.addFlashAttribute("message", "Your password has been changed successfully.");
 		return "redirect:/";
 	}
 

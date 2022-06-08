@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.jdc.balance.model.BalanceAppException;
 import com.jdc.balance.model.domain.entity.User;
 import com.jdc.balance.model.domain.entity.User.Role;
+import com.jdc.balance.model.domain.form.ChangePasswordForm;
 import com.jdc.balance.model.domain.form.SignUpForm;
 import com.jdc.balance.model.domain.vo.UserVo;
 import com.jdc.balance.model.repo.UserRepo;
@@ -68,6 +70,30 @@ public class UserService {
 	@Transactional
 	public void changeStatus(int id, boolean status) {
 		userRepo.findById(id).ifPresent(user -> user.setActive(status));
+	}
+
+	@Transactional
+	public void changePassword(ChangePasswordForm form) {
+		
+		if(!StringUtils.hasLength(form.getOldPassword())) {
+			throw new BalanceAppException("Please enter old password.");
+		}
+
+		if(!StringUtils.hasLength(form.getNewPassword())) {
+			throw new BalanceAppException("Please enter new password.");
+		}
+		
+		if(form.getNewPassword().equals(form.getOldPassword())) {
+			throw new BalanceAppException("Please enter different password with old password.");
+		}
+		
+		var user = userRepo.findOneByLoginId(form.getLoginId()).orElseThrow();
+		
+		if(!passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
+			throw new BalanceAppException("Please check your old password.");
+		}
+		
+		user.setPassword(passwordEncoder.encode(form.getNewPassword()));
 	}
 	
 
