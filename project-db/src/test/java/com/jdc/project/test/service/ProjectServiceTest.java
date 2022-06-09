@@ -123,7 +123,13 @@ public class ProjectServiceTest {
 
 	@Order(6)
 	@ParameterizedTest
-	@CsvSource
+	@CsvSource({
+		",,,,6",
+		"project,,,,1",
+		",Aung,,,5",
+		",,2022-05-01,,3",
+		",,,2022-05-01,4",
+	})
 	void should_search_correctly(String project, String manager, LocalDate dateFrom, LocalDate dateTo, int size) {
 		
 		var list = service.search(project, manager, dateFrom, dateTo);
@@ -134,7 +140,11 @@ public class ProjectServiceTest {
 	
 	@Order(7)
 	@ParameterizedTest
-	@CsvSource
+	@CsvSource({
+		"1,Book Catalog,Book Info Microservice,2022-10-12,18,1",
+		"2,Medicine Catalog,Medicine Info Microservice,2022-11-12,12,1",
+		"3,Member Catalog,Security Microservice,2022-12-12,9,1",
+	})
 	void should_updated(int id, String name, String description, LocalDate startDate, int month, int expected) {
 		
 		var result = service.update(id, name, description, startDate, month);
@@ -143,7 +153,12 @@ public class ProjectServiceTest {
 	
 	@Order(8)
 	@ParameterizedTest
-	@CsvSource
+	@CsvSource({
+		"1,1",
+		"1,0",
+		"2,1",
+		"2,0"
+	})
 	void should_deleted(int id, int expected) {
 		int result = service.deleteById(id);
 		assertEquals(expected, result);

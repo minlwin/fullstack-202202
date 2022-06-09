@@ -3,15 +3,21 @@ package com.jdc.project.model.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jdc.project.model.dto.Project;
+import com.jdc.project.model.service.utils.ProjectHelper;
 
 @Service
 public class ProjectService {
 	
+	@Autowired
+	private ProjectHelper projectHelper;
+	
 	public int create(Project project) {
 		// TODO Clear all test for create method
+		projectHelper.validate(project);
 		return 0;
 	}
 

@@ -24,7 +24,6 @@ public class BalanceEditController {
 
 	@GetMapping
 	public String edit() {
-
 		return "balance-edit";
 	}
 
