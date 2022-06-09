@@ -1,7 +1,10 @@
 package com.jdc.balance.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.jdc.balance.model.BalanceAppException;
 import com.jdc.balance.model.domain.entity.Balance.Type;
 import com.jdc.balance.model.domain.form.BalanceEditForm;
+import com.jdc.balance.model.domain.form.BalanceItemForm;
 import com.jdc.balance.model.domain.form.BalanceSummaryForm;
 import com.jdc.balance.model.service.BalanceService;
 
@@ -34,13 +38,30 @@ public class BalanceEditController {
 			form.setItems(result.getItems());
 		}
 		
-		if(null != type) {
+		if(null != type && !form.getHeader().getType().equals(type)) {
 			form.setHeader(new BalanceSummaryForm());
 			form.getHeader().setType(type);
 			form.getItems().clear();
 		}
 		
 		return "balance-edit";
+	}
+
+	@PostMapping("item")
+	public String addItem(
+			@ModelAttribute("balanceEditForm") BalanceEditForm form, 
+			@ModelAttribute("itemForm") @Valid BalanceItemForm itemForm, 
+			BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "balance-edit";
+		}
+		
+		form.getItems().add(itemForm);
+		
+		var queryParam = form.getHeader().getId() == 0 ? "type=%s".formatted(form.getHeader().getType()) : "id=%s".formatted(form.getHeader().getId());
+		
+		return "redirect:/user/balance-edit?%s".formatted(queryParam);
 	}
 	
 	@GetMapping("confirm")
@@ -52,6 +73,11 @@ public class BalanceEditController {
 	public String save() {
 		// TODO implement here
 		return "redirect:/user/balance/%d".formatted(1);
+	}
+	
+	@ModelAttribute("itemForm")
+	BalanceItemForm itemForm() {
+		return new BalanceItemForm();
 	}
 	
 	@ModelAttribute("balanceEditForm")

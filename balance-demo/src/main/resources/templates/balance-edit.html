@@ -4,7 +4,7 @@
 	layout:decorate="~{/layouts/authenticated.html}">
 <head>
 <meta charset="UTF-8">
-<title th:text="${title}">Edit View</title>
+<title>Edit Details</title>
 </head>
 <body>
 
@@ -17,22 +17,25 @@
 		
 			<div class="card-body">
 				
-				<form action="#" class="row">
+				<form th:action="@{/user/balance-edit/item}" th:object="${itemForm}" method="post" class="row">
 					
 					<div class="col-4">
-						<input type="text" class="form-control" placeholder="Enter Item Name" />
+						<input type="text" th:field="*{item}" class="form-control" placeholder="Enter Item Name" />
+						<span th:errors="*{item}" class="text-secondary"></span>
 					</div>
 					
 					<div class="col-2">
-						<input type="number" placeholder="Unit Price" class="form-control" />
+						<input type="number" th:field="*{unitPrice}" placeholder="Unit Price" class="form-control" />
+						<span th:errors="*{unitPrice}" class="text-secondary"></span>
 					</div>
 					<div class="col-2">
-						<input type="number" placeholder="Quantity" class="form-control" />
+						<input type="number" th:field="*{quantity}" placeholder="Quantity" class="form-control" />
+						<span th:errors="*{quantity}" class="text-secondary"></span>
 					</div>
 					
 					<div class="col">
 						<button class="btn btn-primary"><i class="bi-plus"></i> Add Item</button>
-						<a th:href="@{/user/balance-edit/confirm}" class="btn btn-secondary"><i class="bi-save"></i> Save</a>
+						<a th:if="${balanceEditForm.showSaveBtn}" th:href="@{/user/balance-edit/confirm}" class="btn btn-secondary"><i class="bi-save"></i> Save</a>
 					</div>
 				</form>
 				
@@ -61,12 +64,12 @@
 					
 					<tbody>
 						
-						<tr>
-							<td>1</td>
-							<td>Java Basic Online</td>
-							<td class="text-end">150,000</td>
-							<td class="text-end">3</td>
-							<td class="text-end">450,000</td>
+						<tr class="align-middle" th:each="item, rowNum : ${balanceEditForm.items}">
+							<td th:text="${rowNum.index + 1}">1</td>
+							<td th:text="${item.item}">Java Basic Online</td>
+							<td th:text="${item.unitPrice}" class="text-end">150,000</td>
+							<td th:text="${item.quantity}" class="text-end">3</td>
+							<td th:text="${item.unitPrice * item.quantity}" class="text-end">450,000</td>
 						</tr>
 					
 					</tbody>

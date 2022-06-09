@@ -2,13 +2,19 @@ package com.jdc.balance.model.domain.form;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 public class BalanceItemForm implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	@NotBlank(message = "Enter Item Name")
 	private String item;
+	@Min(value = 1, message = "Enter Price")
 	private int unitPrice;
+	@Min(value = 1, message = "Enter Quantity")
 	private int quantity;
 
 	public int getId() {

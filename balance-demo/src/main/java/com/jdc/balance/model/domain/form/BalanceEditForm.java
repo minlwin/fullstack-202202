@@ -42,5 +42,9 @@ public class BalanceEditForm implements Serializable{
 	public int getTotal() {
 		return items.stream().mapToInt(a -> a.getQuantity() * a.getUnitPrice()).sum();
 	}
+	
+	public boolean isShowSaveBtn() {
+		return !items.isEmpty();
+	}
 
 }
