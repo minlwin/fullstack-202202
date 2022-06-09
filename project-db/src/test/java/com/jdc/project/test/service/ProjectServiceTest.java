@@ -35,7 +35,6 @@ public class ProjectServiceTest {
 	@Value("${project.empty.start}")
 	private String noStartDate;	
 	
-	@Disabled
 	@Order(1)
 	@ParameterizedTest
 	@ValueSource(strings = {
@@ -53,7 +52,6 @@ public class ProjectServiceTest {
 		assertEquals(expectedId, id);
 	}
 	
-	@Disabled
 	@Order(2)
 	@ParameterizedTest
 	@ValueSource(strings = {
@@ -92,6 +90,7 @@ public class ProjectServiceTest {
 		assertEquals(noStartDate, exception.getMessage());
 	}
 	
+	@Disabled
 	@Order(5)
 	@ParameterizedTest
 	@ValueSource(strings = {
@@ -121,6 +120,7 @@ public class ProjectServiceTest {
 		
 	}
 
+	@Disabled
 	@Order(6)
 	@ParameterizedTest
 	@CsvSource({
@@ -138,6 +138,7 @@ public class ProjectServiceTest {
 		assertEquals(size, list.size());
 	}
 	
+	@Disabled
 	@Order(7)
 	@ParameterizedTest
 	@CsvSource({
@@ -151,13 +152,13 @@ public class ProjectServiceTest {
 		assertEquals(expected, result);
 	}
 	
+	@Disabled
 	@Order(8)
 	@ParameterizedTest
 	@CsvSource({
 		"1,1",
-		"1,0",
 		"2,1",
-		"2,0"
+		"3,1"
 	})
 	void should_deleted(int id, int expected) {
 		int result = service.deleteById(id);
