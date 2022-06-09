@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.jdc.balance.model.BalanceAppException;
 import com.jdc.balance.model.domain.entity.Balance.Type;
 import com.jdc.balance.model.domain.form.BalanceEditForm;
+import com.jdc.balance.model.domain.form.BalanceSummaryForm;
 import com.jdc.balance.model.service.BalanceService;
 
 @Controller
@@ -23,8 +24,28 @@ public class BalanceEditController {
 	private BalanceService service;
 
 	@GetMapping
-	public String edit() {
+	public String edit(@ModelAttribute("balanceEditForm") BalanceEditForm form, 
+			@RequestParam(required = false) Integer id, 
+			@RequestParam(required = false) Type type) {
+		
+		if(null != id && form.getHeader().getId() != id) {
+			var result = service.featchForm(id);
+			form.setHeader(result.getHeader());
+			form.setItems(result.getItems());
+		}
+		
+		if(null != type) {
+			form.setHeader(new BalanceSummaryForm());
+			form.getHeader().setType(type);
+			form.getItems().clear();
+		}
+		
 		return "balance-edit";
+	}
+	
+	@GetMapping("confirm")
+	public String confirm() {
+		return "balance-edit-confirm";
 	}
 
 	@PostMapping

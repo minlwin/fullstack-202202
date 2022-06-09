@@ -10,35 +10,42 @@
 
 	<div layout:fragment="content">
 	
-		<!-- Add Details Form -->
+		<!-- Summary -->
 		<div class="card mb-4">
-		
-			<div class="card-header"><i class="bi-plus"></i> Add <span th:text="${balanceEditForm.header.type}"></span></div>
-		
+			
+			<div class="card-header">
+				<i class="bi-pie-chart"></i> 
+				<span th:text="${balanceEditForm.header.id} eq 0 ? 'Add ' : 'Edit '"></span> 
+				<span th:text="${balanceEditForm.header.type}"></span>
+			</div>
+			
 			<div class="card-body">
 				
-				<form action="#" class="row">
+				<form th:action="@{/user/balance}" method="post" class="row">
+					
+					<div class="col-auto">
+						<input type="date" class="form-control" />
+					</div>
 					
 					<div class="col-4">
-						<input type="text" class="form-control" placeholder="Enter Item Name" />
+						<input type="text" class="form-control"
+							placeholder="Enter Category" />
 					</div>
 					
-					<div class="col-2">
-						<input type="number" placeholder="Unit Price" class="form-control" />
-					</div>
-					<div class="col-2">
-						<input type="number" placeholder="Quantity" class="form-control" />
+					<div class="col-2 text-end">
+						<span class="form-control">360,000</span>
 					</div>
 					
 					<div class="col">
-						<button class="btn btn-primary"><i class="bi-plus"></i> Add Item</button>
-						<a th:href="@{/user/balance-edit/confirm}" class="btn btn-secondary"><i class="bi-save"></i> Save</a>
+						<button type="submit" class="btn btn-primary"><i class="bi-save"></i> Save</button>
 					</div>
-				</form>
 				
+				</form>
+			
 			</div>
-		</div>	
-	
+		
+		</div>
+		
 		
 		<!-- Details List -->
 		<div class="card">
