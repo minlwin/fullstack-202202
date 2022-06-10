@@ -5,10 +5,10 @@ import java.io.Serializable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-public class BalanceItemForm implements Serializable{
+public class BalanceItemForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int id;
 	@NotBlank(message = "Enter Item Name")
 	private String item;
@@ -16,6 +16,16 @@ public class BalanceItemForm implements Serializable{
 	private int unitPrice;
 	@Min(value = 1, message = "Enter Quantity")
 	private int quantity;
+
+	private boolean deleted;
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public int getId() {
 		return id;

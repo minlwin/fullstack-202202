@@ -59,9 +59,21 @@ public class BalanceEditController {
 		
 		form.getItems().add(itemForm);
 		
-		var queryParam = form.getHeader().getId() == 0 ? "type=%s".formatted(form.getHeader().getType()) : "id=%s".formatted(form.getHeader().getId());
+		return "redirect:/user/balance-edit?%s".formatted(form.queryParams());
+	}
+	
+	@GetMapping("item")
+	public String deleteItem(@ModelAttribute("balanceEditForm") BalanceEditForm form, @RequestParam int index) {
 		
-		return "redirect:/user/balance-edit?%s".formatted(queryParam);
+		var item = form.getItems().get(index);
+		
+		if(item.getId() == 0) {
+			form.getItems().remove(item);
+		} else {
+			item.setDeleted(true);
+		}
+
+		return "redirect:/user/balance-edit?%s".formatted(form.queryParams());
 	}
 	
 	@GetMapping("confirm")
@@ -70,9 +82,25 @@ public class BalanceEditController {
 	}
 
 	@PostMapping
-	public String save() {
+	public String save(@ModelAttribute("balanceEditForm") BalanceEditForm form, 
+			@ModelAttribute("summaryForm") @Valid BalanceSummaryForm summaryForm, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "balance-edit-confirm";
+		}
+		
+		form.getHeader().setCategory(summaryForm.getCategory());
+		form.getHeader().setDate(summaryForm.getDate());
+		
+		var id = service.save(form);
+		form.clear();
 		// TODO implement here
-		return "redirect:/user/balance/%d".formatted(1);
+		return "redirect:/user/balance/%d".formatted(id);
+	}
+	
+	@ModelAttribute("summaryForm")
+	BalanceSummaryForm summaryForm() {
+		return new BalanceSummaryForm();
 	}
 	
 	@ModelAttribute("itemForm")

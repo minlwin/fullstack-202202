@@ -65,4 +65,9 @@ public class BalanceService {
 		return null;
 	}
 
+	public Object save(BalanceEditForm form) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

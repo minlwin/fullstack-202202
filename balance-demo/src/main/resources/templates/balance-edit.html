@@ -34,8 +34,10 @@
 					</div>
 					
 					<div class="col">
-						<button class="btn btn-primary"><i class="bi-plus"></i> Add Item</button>
-						<a th:if="${balanceEditForm.showSaveBtn}" th:href="@{/user/balance-edit/confirm}" class="btn btn-secondary"><i class="bi-save"></i> Save</a>
+						<button class="btn btn-outline-primary"><i class="bi-plus"></i> Add Item</button>
+						<a th:if="${balanceEditForm.showSaveBtn}" th:href="@{/user/balance-edit/confirm}" class="btn btn-outline-secondary">
+							<i class="bi-arrow-right"></i> Next
+						</a>
 					</div>
 				</form>
 				
@@ -44,41 +46,8 @@
 	
 		
 		<!-- Details List -->
-		<div class="card">
-			
-			<div class="card-header"><i class="bi-list-check"></i> <span th:text="${balanceEditForm.header.type}"></span> Details List</div>
-			
-			<div class="card-body">
-			
-				<table class="table table-striped">
-					
-					<thead>
-						<tr>
-							<th>No.</th>
-							<th>Item Name</th>
-							<th class="text-end">Unit Price</th>
-							<th class="text-end">Quantity</th>
-							<th class="text-end">Price</th>
-						</tr>
-					</thead>
-					
-					<tbody>
-						
-						<tr class="align-middle" th:each="item, rowNum : ${balanceEditForm.items}">
-							<td th:text="${rowNum.index + 1}">1</td>
-							<td th:text="${item.item}">Java Basic Online</td>
-							<td th:text="${item.unitPrice}" class="text-end">150,000</td>
-							<td th:text="${item.quantity}" class="text-end">3</td>
-							<td th:text="${item.unitPrice * item.quantity}" class="text-end">450,000</td>
-						</tr>
-					
-					</tbody>
-					
-				</table>
-			
-			</div>
-		
-		</div>
+		<div th:replace="/fragments/components :: balanceDetailsList(${balanceEditForm.validItems})"></div>
+
 	</div>		
 	
 

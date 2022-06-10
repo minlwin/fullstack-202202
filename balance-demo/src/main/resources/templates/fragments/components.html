@@ -40,6 +40,48 @@
 		</div>
 	
 	</div>
-
+	
+	
+	<div th:fragment="balanceDetailsList(items)" class="card">
+		
+		<div class="card-header"><i class="bi-list-check"></i> <span th:text="${balanceEditForm.header.type}"></span> Details List</div>
+		
+		<div class="card-body">
+		
+			<table class="table table-striped">
+				
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Item Name</th>
+						<th class="text-end">Unit Price</th>
+						<th class="text-end">Quantity</th>
+						<th class="text-end">Price</th>
+						<th></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					
+					<tr class="align-middle" th:each="item, rowNum : ${items}">
+						<td th:text="${rowNum.index + 1}">1</td>
+						<td th:text="${item.item}">Java Basic Online</td>
+						<td th:text="${#numbers.formatInteger(item.unitPrice,1,'COMMA')}" class="text-end">150,000</td>
+						<td th:text="${item.quantity}" class="text-end">3</td>
+						<td th:text="${#numbers.formatInteger(item.unitPrice * item.quantity,1,'COMMA')}" class="text-end">450,000</td>
+						<td class="text-center">
+							<a th:href="@{/user/balance-edit/item(index=${rowNum.index})}" class="btn btn-link">
+								<i class="bi-trash"></i>
+							</a>
+						</td>
+					</tr>
+				
+				</tbody>
+				
+			</table>
+		
+		</div>
+	
+	</div>
 </body>
 </html>
