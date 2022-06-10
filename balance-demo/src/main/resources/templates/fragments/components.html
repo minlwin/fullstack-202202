@@ -63,7 +63,7 @@
 				
 				<tbody>
 					
-					<tr class="align-middle" th:each="item, rowNum : ${dto.items}">
+					<tr class="align-middle" th:each="item, rowNum : ${dto.validItems}">
 						<td th:text="${rowNum.index + 1}">1</td>
 						<td th:text="${item.item}">Java Basic Online</td>
 						<td th:text="${#numbers.formatInteger(item.unitPrice,1,'COMMA')}" class="text-end">150,000</td>
@@ -78,7 +78,7 @@
 				
 				</tbody>
 				
-				<tfoot>
+				<tfoot th:if="${readonly}">
 					<tr class="text-end">
 						<td colspan="3">Total</td>
 						<td th:text="${#numbers.formatInteger(dto.totalCount, 1, 'COMMA')}"></td>

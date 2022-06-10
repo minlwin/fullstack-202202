@@ -93,14 +93,15 @@ public class BalanceEditController {
 		form.getHeader().setDate(summaryForm.getDate());
 		
 		var id = service.save(form);
+
 		form.clear();
-		// TODO implement here
+		
 		return "redirect:/user/balance/details/%d".formatted(id);
 	}
 	
 	@ModelAttribute("summaryForm")
-	BalanceSummaryForm summaryForm() {
-		return new BalanceSummaryForm();
+	BalanceSummaryForm summaryForm(@ModelAttribute("balanceEditForm") BalanceEditForm form) {
+		return form.getHeader();
 	}
 	
 	@ModelAttribute("itemForm")
