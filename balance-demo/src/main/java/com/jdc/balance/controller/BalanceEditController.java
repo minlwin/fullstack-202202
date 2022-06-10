@@ -33,12 +33,12 @@ public class BalanceEditController {
 			@RequestParam(required = false) Type type) {
 		
 		if(null != id && form.getHeader().getId() != id) {
-			var result = service.featchForm(id);
+			var result = service.findById(id);
 			form.setHeader(result.getHeader());
 			form.setItems(result.getItems());
 		}
 		
-		if(null != type && !form.getHeader().getType().equals(type)) {
+		if(null != type && form.getHeader().getType() != type) {
 			form.setHeader(new BalanceSummaryForm());
 			form.getHeader().setType(type);
 			form.getItems().clear();
@@ -95,7 +95,7 @@ public class BalanceEditController {
 		var id = service.save(form);
 		form.clear();
 		// TODO implement here
-		return "redirect:/user/balance/%d".formatted(id);
+		return "redirect:/user/balance/details/%d".formatted(id);
 	}
 	
 	@ModelAttribute("summaryForm")
@@ -112,7 +112,7 @@ public class BalanceEditController {
 	public BalanceEditForm form(@RequestParam(required = false) Integer id, @RequestParam(required = false) Type type) {
 		
 		if(null != id) {
-			return service.featchForm(id);
+			return service.findById(id);
 		}
 		
 		if(null == type) {

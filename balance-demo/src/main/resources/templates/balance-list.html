@@ -58,21 +58,21 @@
 			</thead>
 			
 			<tbody>
-				<tr th:each="item : ${list}">
+				<tr th:each="item : ${list}" class="align-middle">
 					<td th:text="${#temporals.format(item.balance.date, 'yyyy-MM-dd')}">2022/05/10</td>
 					<td th:text="${item.balance.category}">Student Fees</td>
 					<td th:text="${item.item}">Java Basic Online Course</td>
-					<td th:text="${#numbers.formatInteger(item.unitPrice))}" class="text-end">
+					<td th:text="${#numbers.formatInteger(item.unitPrice,1,'COMMA')}" class="text-end">
 						150,000
 					</td>
 					<td th:text="${item.quantity}" class="text-end">
 						10
 					</td>
-					<td th:text="${#numbers.formatInteger(item.unitPrice * item.quantity)}" class="text-end">
+					<td th:text="${#numbers.formatInteger(item.unitPrice * item.quantity, 1, 'COMMA')}" class="text-end">
 						1,500,000
 					</td>
 					<td>
-						<a href="#" class="btn btn-link">
+						<a th:href="@{/user/balance/details/} + ${item.balance.id}" class="btn btn-link">
 							<i class="bi-list"></i>
 						</a>
 					</td>

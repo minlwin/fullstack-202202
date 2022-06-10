@@ -4,7 +4,7 @@
 	layout:decorate="~{/layouts/authenticated.html}">
 <head>
 <meta charset="UTF-8">
-<title th:text="${title}">Edit View</title>
+<title>Confirm</title>
 </head>
 <body>
 
@@ -52,7 +52,7 @@
 		
 		
 		<!-- Details List -->
-		<div th:replace="/fragments/components :: balanceDetailsList(${balanceEditForm.validItems})"></div>
+		<div th:replace="/fragments/components :: balanceDetailsList(${balanceEditForm}, true)"></div>
 
 
 	</div>		

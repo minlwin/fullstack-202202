@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jdc.balance.model.domain.entity.Balance;
 import com.jdc.balance.model.domain.entity.Balance.Type;
 
 public class BalanceEditForm implements Serializable{
@@ -16,6 +17,23 @@ public class BalanceEditForm implements Serializable{
 	public BalanceEditForm() {
 		header = new BalanceSummaryForm();
 		items = new ArrayList<>();
+	}
+	
+	public BalanceEditForm(Balance entity) {
+		header = new BalanceSummaryForm();
+		header.setId(entity.getId());
+		header.setCategory(entity.getCategory());
+		header.setDate(entity.getDate());
+		header.setType(entity.getType());
+		
+		items = entity.getItems().stream().map(a -> {
+			var item = new BalanceItemForm();
+			item.setId(a.getId());
+			item.setItem(a.getItem());
+			item.setUnitPrice(a.getUnitPrice());
+			item.setQuantity(a.getQuantity());
+			return item;
+		}).toList();
 	}
 	
 	public BalanceEditForm type(Type type) {
@@ -41,6 +59,10 @@ public class BalanceEditForm implements Serializable{
 
 	public int getTotal() {
 		return items.stream().mapToInt(a -> a.getQuantity() * a.getUnitPrice()).sum();
+	}
+	
+	public int getTotalCount() {
+		return items.stream().mapToInt(a -> a.getQuantity()).sum();
 	}
 	
 	public boolean isShowSaveBtn() {

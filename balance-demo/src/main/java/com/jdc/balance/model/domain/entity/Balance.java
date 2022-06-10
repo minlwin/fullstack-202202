@@ -2,6 +2,8 @@ package com.jdc.balance.model.domain.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,10 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Balance implements Serializable{
-	
+public class Balance implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,11 +26,31 @@ public class Balance implements Serializable{
 	private LocalDate date;
 	@Column(nullable = false)
 	private String category;
-	
-	@ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+	@ManyToOne(optional = false, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private User user;
-	
+
+	@OneToMany(mappedBy = "balance", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+	private List<BalanceItem> items;
+
 	private Type type;
+	
+	public Balance() {
+		items = new ArrayList<>();
+	}
+	
+	public void addItem(BalanceItem item) {
+		item.setBalance(this);
+		items.add(item);
+	}
+
+	public List<BalanceItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<BalanceItem> items) {
+		this.items = items;
+	}
 
 	public int getId() {
 		return id;
