@@ -72,6 +72,7 @@ public class BalanceController {
 
 	@GetMapping("delete/{id:\\d+}")
 	public String delete(@PathVariable int id) {
+		service.deleteById(id);
 		return "redirect:/";
 	}
 

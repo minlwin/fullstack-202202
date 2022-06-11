@@ -111,4 +111,9 @@ public class BalanceService {
 		return balance.getId();
 	}
 
+	@Transactional
+	public void deleteById(int id) {
+		repo.deleteById(id);
+	}
+
 }
