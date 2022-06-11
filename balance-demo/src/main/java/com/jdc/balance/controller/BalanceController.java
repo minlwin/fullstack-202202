@@ -3,6 +3,7 @@ package com.jdc.balance.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +27,31 @@ public class BalanceController {
 	@Autowired
 	private BalanceService service;
 	
+	@Autowired
+	DateTimeFormatter dateFormatter;
+	
 	@GetMapping
-	String report() {
+	String report(
+			ModelMap model,
+			@RequestParam(required = false) Type type,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo,
+			@RequestParam Optional<Integer> page,
+			@RequestParam Optional<Integer> size) {
+		
+		var result = service.searchReport(type, dateFrom, dateTo, page, size);
+		var pagination = Pagination.builder("/user/balance")
+				.params(Map.of(
+					"type", null == type ? "" : type.name(),
+					"dateFrom", null == dateFrom ? "" : dateFrom.format(dateFormatter),
+					"dateTo", null == dateTo ? "" : dateTo.format(dateFormatter)
+				))
+				.page(result)
+				.build();
+		
+		model.put("pagination", pagination);
+		model.put("list", result.getContent());
+		
 		return "balance-report";
 	}
 	
@@ -48,8 +73,8 @@ public class BalanceController {
 		
 		var params = new HashMap<String, String>();
 		params.put("type", type.name());
-		params.put("dateFrom", null == dateFrom ? "" : dateFrom.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		params.put("dateTo", null == dateTo ? "" : dateTo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		params.put("dateFrom", null == dateFrom ? "" : dateFrom.format(dateFormatter));
+		params.put("dateTo", null == dateTo ? "" : dateTo.format(dateFormatter));
 		params.put("keyword", null == keyword? "" : keyword);
 		
 		
@@ -74,6 +99,11 @@ public class BalanceController {
 	public String delete(@PathVariable int id) {
 		service.deleteById(id);
 		return "redirect:/";
+	}
+	
+	@ModelAttribute("balanceTypes")
+	Type [] types() {
+		return Type.values();
 	}
 
 }

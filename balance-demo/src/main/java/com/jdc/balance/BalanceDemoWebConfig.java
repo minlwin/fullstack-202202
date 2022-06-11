@@ -1,5 +1,8 @@
 package com.jdc.balance;
 
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -19,5 +22,15 @@ public class BalanceDemoWebConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/static/");
+	}
+	
+	@Bean
+	DateTimeFormatter dateFormatter() {
+		return DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	}
+	
+	@Bean
+	Integer defaultPageSize() {
+		return 10;
 	}
 }

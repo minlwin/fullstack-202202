@@ -17,6 +17,7 @@ import com.jdc.balance.model.domain.entity.Balance;
 import com.jdc.balance.model.domain.entity.Balance.Type;
 import com.jdc.balance.model.domain.entity.BalanceItem;
 import com.jdc.balance.model.domain.form.BalanceEditForm;
+import com.jdc.balance.model.domain.vo.BalanceReportVo;
 import com.jdc.balance.model.repo.BalanceItemRepo;
 import com.jdc.balance.model.repo.BalanceRepo;
 import com.jdc.balance.model.repo.UserRepo;
@@ -29,15 +30,18 @@ public class BalanceService {
 
 	@Autowired
 	private BalanceRepo repo;
-	
+
 	@Autowired
 	private UserRepo userRepo;
+
+	@Autowired
+	private Integer defaultPageSize;
 
 	@PreAuthorize("authenticated()")
 	public Page<BalanceItem> searchItems(Type type, LocalDate dateFrom, LocalDate dateTo, String keyword,
 			Optional<Integer> page, Optional<Integer> size) {
 
-		var pageInfo = PageRequest.of(page.orElse(0), size.orElse(10));
+		var pageInfo = PageRequest.of(page.orElse(0), size.orElse(defaultPageSize));
 
 		// Login User Specification
 		var username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -88,23 +92,23 @@ public class BalanceService {
 		balance.setCategory(form.getHeader().getCategory());
 		balance.setDate(form.getHeader().getDate());
 		balance.setType(form.getHeader().getType());
-		
+
 		balance = repo.save(balance);
-		
-		for(var formItem : form.getItems()) {
-			
+
+		for (var formItem : form.getItems()) {
+
 			var item = formItem.getId() == 0 ? new BalanceItem() : itemRepo.findById(formItem.getId()).orElseThrow();
-			
-			if(formItem.isDeleted()) {
+
+			if (formItem.isDeleted()) {
 				itemRepo.delete(item);
 				continue;
-			} 
-			
+			}
+
 			item.setItem(formItem.getItem());
 			item.setUnitPrice(formItem.getUnitPrice());
 			item.setQuantity(formItem.getQuantity());
 			item.setBalance(balance);
-			
+
 			itemRepo.save(item);
 		}
 
@@ -114,6 +118,52 @@ public class BalanceService {
 	@Transactional
 	public void deleteById(int id) {
 		repo.deleteById(id);
+	}
+
+	@PreAuthorize("authenticated()")
+	public Page<BalanceReportVo> searchReport(Type type, LocalDate dateFrom, LocalDate dateTo, Optional<Integer> page,
+			Optional<Integer> size) {
+
+		Specification<Balance> spec = (root, query, builder) -> builder.equal(root.get("user").get("loginId"),
+				SecurityContextHolder.getContext().getAuthentication().getName());
+
+		if (null != type) {
+			spec = spec.and((root, query, builder) -> builder.equal(root.get("type"), type));
+		}
+
+		if (null != dateFrom) {
+			spec = spec.and((root, query, builder) -> builder.greaterThanOrEqualTo(root.get("date"), dateFrom));
+		}
+
+		if (null != dateTo) {
+			spec = spec.and((root, query, builder) -> builder.lessThanOrEqualTo(root.get("date"), dateTo));
+		}
+
+		var pageInfo = PageRequest.of(page.orElse(0), size.orElse(defaultPageSize));
+
+		var result = repo.findAll(spec, pageInfo).map(BalanceReportVo::new);
+		
+
+		// Net Balance Calculation
+		if(!result.getContent().isEmpty()) {
+			var firstId = result.getContent().get(0).getId();
+			
+			var lastIncomes = itemRepo.getLastBalance(firstId, Type.Income).map(a -> a.intValue()).orElse(0);
+			var lastExpenses = itemRepo.getLastBalance(firstId, Type.Expense).map(a -> a.intValue()).orElse(0);
+			var lastBalance = lastIncomes - lastExpenses;
+			
+			for(var vo : result.getContent()) {
+				if(vo.getType() == Type.Income) {
+					lastBalance += vo.getAmount();
+				} else {
+					lastBalance -= vo.getAmount();
+				}
+				
+				vo.setBalance(lastBalance);
+			}
+		}
+
+		return result;
 	}
 
 }

@@ -16,24 +16,23 @@
 			
 			<div class="card-body">
 				
-				<form action="#" class="row">
+				<form class="row">
 					
 					<div class="col-3">
 						
 						<select name="type" id="type" class="form-select">
 							<option value="">All Type</option>
-							<option value="Incomes">Incomes</option>
-							<option value="Expenses">Expenses</option>
+							<option th:each="type : ${balanceTypes}" th:value="${type}" th:text="${type}" th:selected="${#strings.equals(param.type, type)}" value="Incomes">Incomes</option>
 						</select>
 					
 					</div>
 					
 					<div class="col-auto">
-						<input type="date" id="dateFrom" class="form-control"  />
+						<input type="date" th:value="${param.dateFrom}" name="dateFrom" class="form-control"  />
 					</div>
 				
 					<div class="col-auto">
-						<input type="date" id="dateTo" class="form-control"  />
+						<input type="date" th:value="${param.dateTo}" name="dateTo" class="form-control"  />
 					</div>
 					
 					<div class="col-auto">
@@ -62,17 +61,20 @@
 			</thead>
 			
 			<tbody>
-				<tr>
-					<td>2022/05/10</td>
-					<td>Income</td>
-					<td>Java Basic Student Fees</td>
-					<td class="text-end">150,000</td>
-					<td class="text-end"></td>
-					<td class="text-end">150,00</td>				
+				<tr th:each="data : ${list}">
+					<td th:text="${#temporals.format(data.date, 'yyyy-MM-dd')}">2022/05/10</td>
+					<td th:text="${data.type}">Income</td>
+					<td th:text="${data.category}">Java Basic Student Fees</td>
+					<td th:text="${#numbers.formatInteger(data.income, 1, 'COMMA')}" class="text-end">150,000</td>
+					<td th:text="${#numbers.formatInteger(data.expense, 1, 'COMMA')}" class="text-end">150,000</td>
+					<td th:text="${#numbers.formatInteger(data.balance, 1, 'COMMA')}" class="text-end">150,000</td>
 				</tr>
 			</tbody>
 		
 		</table>
+		
+		<!-- Pagination -->
+		<div th:include="/fragments/components :: pagination(${pagination})"></div>
 
 	</div>
 	

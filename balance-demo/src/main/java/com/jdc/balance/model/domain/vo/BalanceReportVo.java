@@ -2,6 +2,7 @@ package com.jdc.balance.model.domain.vo;
 
 import java.time.LocalDate;
 
+import com.jdc.balance.model.domain.entity.Balance;
 import com.jdc.balance.model.domain.entity.Balance.Type;
 
 public class BalanceReportVo {
@@ -12,6 +13,17 @@ public class BalanceReportVo {
 	private String category;
 	private int amount;
 	private int balance;
+	
+	public BalanceReportVo() {
+	}
+
+	public BalanceReportVo(Balance entity) {
+		this.id = entity.getId();
+		this.date = entity.getDate();
+		this.category = entity.getCategory();
+		this.type = entity.getType();
+		this.amount = entity.getItems().stream().mapToInt(a -> a.getQuantity() * a.getUnitPrice()).sum();
+	}
 
 	public int getId() {
 		return id;
@@ -51,6 +63,14 @@ public class BalanceReportVo {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	
+	public int getIncome() {
+		return type == Type.Income ? amount : 0;
+	}
+	
+	public int getExpense() {
+		return type == Type.Expense ? amount : 0;
 	}
 
 	public int getBalance() {

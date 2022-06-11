@@ -22,11 +22,14 @@ public class UserAccessLogService {
 	
 	@Autowired
 	private UserAccessLogRepo repo;
+	
+	@Autowired
+	private Integer defaultPageSize;
 
 	public Page<UserAccessLog> search(String username, Optional<Integer> page, Optional<Integer> size) {
 		
 		var pageInfo = PageRequest.of(
-				page.orElse(0), size.orElse(5))
+				page.orElse(0), size.orElse(defaultPageSize))
 				.withSort(Sort.by("accessTime").descending());
 		
 		Specification<UserAccessLog> spec = (root, query, builder) -> builder.equal(root.get("username"), username);
@@ -39,7 +42,7 @@ public class UserAccessLogService {
 			Optional<Integer> size) {
 		
 		var pageInfo = PageRequest.of(
-				page.orElse(0), size.orElse(5))
+				page.orElse(0), size.orElse(defaultPageSize))
 				.withSort(Sort.by("accessTime").descending());
 		
 		Specification<UserAccessLog> spec = Specification.where(null);

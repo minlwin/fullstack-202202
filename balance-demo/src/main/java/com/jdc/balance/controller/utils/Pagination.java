@@ -21,9 +21,6 @@ public class Pagination {
 	private List<Integer> sizes;
 	private String sizeChageFormId;
 	
-	public boolean isShow() {
-		return pages.size() > 1;
-	}
 
 	public static Builder builder(String url) {
 		return new Builder(url);
@@ -119,6 +116,10 @@ public class Pagination {
 		
 	}
 	
+	public boolean isShow() {
+		return pages.size() > 1;
+	}
+
 	public String getSizeChageFormId() {
 		return sizeChageFormId;
 	}
