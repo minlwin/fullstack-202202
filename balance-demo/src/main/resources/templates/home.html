@@ -8,5 +8,46 @@
 </head>
 <body>
 
+	<div layout:fragment="content">
+		
+		<div class="card">
+			<div class="card-header">Monthly Balance Summary</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-auto">
+						<select id="years" class="form-select">
+							<option value="">Years</option>
+						</select>
+					</div>
+					<div class="col-auto">
+						<select id="months" class="form-select">
+							<option value="">Months</option>
+						</select>
+					</div>
+					
+					<div class="col">
+						<span class="form-control d-flex justify-content-between">
+							<i class="bi-arrow-up-circle"></i>
+							<span id="totalIncomes">12K</span>
+						</span>
+					</div>
+					<div class="col">
+						<span class="form-control d-flex justify-content-between">
+							<i class="bi-arrow-down-circle"></i>
+							<span id="totalIncomes">2K</span>
+						</span>
+					</div>
+					<div class="col">
+						<span class="form-control d-flex justify-content-between">
+							<i class="bi-arrow-right-circle"></i>
+							<span id="totalIncomes">10K</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
 </body>
 </html>
