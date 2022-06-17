@@ -21,7 +21,7 @@ public class Account implements Serializable{
 	@Column(nullable = false, length = 45)
 	private String name;
 	@Column(nullable = false)
-	private String role;
+	private Role role;
 	@Column(name="login_id", nullable = false, length = 10)
 	private String loginId;
 	@Column(nullable = false)
@@ -47,11 +47,11 @@ public class Account implements Serializable{
 		this.name = name;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
