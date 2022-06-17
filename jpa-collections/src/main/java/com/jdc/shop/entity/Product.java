@@ -5,6 +5,7 @@ import static javax.persistence.EnumType.STRING;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -15,11 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUCT")
-public class Product implements Serializable{
+public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,10 +36,24 @@ public class Product implements Serializable{
 	@MapKeyColumn(name = "type")
 	@MapKeyEnumerated(STRING)
 	private Map<PriceType, Integer> price;
-	
+
 	@ElementCollection
-	@CollectionTable(name = "PRODUCT_TAGS", joinColumns = @JoinColumn(name ="product"))
+	@OrderColumn(name = "view_order")
+	@CollectionTable(name = "PRODUCT_TAGS", joinColumns = @JoinColumn(name = "product"))
 	private List<String> tags;
+
+	@ElementCollection
+	@OrderColumn(name = "view_order")
+	@CollectionTable(name = "PRODUCT_FEATURES", joinColumns = @JoinColumn(name = "product"))
+	private List<Feature> features;
+
+	public List<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(List<Feature> features) {
+		this.features = features;
+	}
 
 	public int getId() {
 		return id;
