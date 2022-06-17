@@ -5,7 +5,6 @@ import static javax.persistence.EnumType.STRING;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
