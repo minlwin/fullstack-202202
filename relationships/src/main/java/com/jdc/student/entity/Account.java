@@ -1,6 +1,6 @@
 package com.jdc.student.entity;
 
-import static javax.persistence.InheritanceType.JOINED;
+import static javax.persistence.InheritanceType.*;
 
 import java.io.Serializable;
 
@@ -9,10 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 @Entity
-@Inheritance(strategy = SINGLE_TABLE)
+@Inheritance(strategy = JOINED)
 public abstract class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
