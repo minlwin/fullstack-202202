@@ -1,24 +1,24 @@
 package com.jdc.student.entity;
 
+import static javax.persistence.InheritanceType.JOINED;
+
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 @Entity
-@Table(name = "account")
-public class Account implements Serializable {
+@Inheritance(strategy = SINGLE_TABLE)
+public abstract class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private int id;
 	@Column(nullable = false, length = 45)
 	private String name;
@@ -29,19 +29,8 @@ public class Account implements Serializable {
 	@Column(nullable = false)
 	private String password;
 
-	@ManyToMany(mappedBy = "teachers")
-	private List<Section> sections;
-
-	public List<Section> getSections() {
-		return sections;
-	}
-
-	public void setSections(List<Section> sections) {
-		this.sections = sections;
-	}
-
 	public enum Role {
-		Admin, Teacher, Student, Office
+		Teacher, Student, Office
 	}
 
 	public int getId() {

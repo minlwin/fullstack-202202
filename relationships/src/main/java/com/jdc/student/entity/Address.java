@@ -24,18 +24,10 @@ public class Address implements Serializable {
 	@Column(length = 45)
 	private String email;
 
+	@OneToOne
 	@MapsId
-	@OneToOne(optional = false)
 	@PrimaryKeyJoinColumn
-	private Account account;
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
+	private Student student;
 
 	public int getId() {
 		return id;
@@ -69,4 +61,13 @@ public class Address implements Serializable {
 		this.email = email;
 	}
 
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	
 }
