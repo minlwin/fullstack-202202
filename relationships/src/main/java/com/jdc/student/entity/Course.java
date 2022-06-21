@@ -1,6 +1,7 @@
 package com.jdc.student.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,14 +10,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "course")
-public class Course implements Serializable{
+public class Course implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -24,13 +26,35 @@ public class Course implements Serializable{
 	private String name;
 	@Column(columnDefinition = "LONGTEXT")
 	private String description;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Level level;
 	private int hours;
 
+	@OneToMany(mappedBy = "course")
+	private List<Section> sections;
+
+	@OneToMany(mappedBy = "course")
+	private List<CourseFees> fees;
+
+	public List<CourseFees> getFees() {
+		return fees;
+	}
+
+	public void setFees(List<CourseFees> fees) {
+		this.fees = fees;
+	}
+
 	public enum Level {
 		Basic, Intermediate, Advance
+	}
+
+	public List<Section> getSections() {
+		return sections;
+	}
+
+	public void setSections(List<Section> sections) {
+		this.sections = sections;
 	}
 
 	public int getId() {

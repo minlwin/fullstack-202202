@@ -24,6 +24,7 @@ public class CourseFees implements Serializable{
 	private int fees;
 	@Column(name = "reference_date", nullable = false)
 	private LocalDate refDate;
+	
 	@ManyToOne(optional = false)
 	private Course course;
 
