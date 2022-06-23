@@ -1,10 +1,9 @@
 package com.jdc.student.entity;
 
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,8 +26,7 @@ public class Student extends Account {
 	@OneToOne(mappedBy = "student")
 	private Address address;
 
-	@ManyToMany
-	private List<Section> classes;
+	private LocalDate entranceDate;
 
 	public Address getAddress() {
 		return address;
@@ -38,12 +36,12 @@ public class Student extends Account {
 		this.address = address;
 	}
 
-	public List<Section> getClasses() {
-		return classes;
+	public LocalDate getEntranceDate() {
+		return entranceDate;
 	}
 
-	public void setClasses(List<Section> classes) {
-		this.classes = classes;
+	public void setEntranceDate(LocalDate entranceDate) {
+		this.entranceDate = entranceDate;
 	}
 
 }
