@@ -1,17 +1,19 @@
 package com.jdc.student.entity;
 
-import static javax.persistence.InheritanceType.*;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.Table;
 
 @Entity
-@Inheritance(strategy = JOINED)
+@Table(name = "account")
+@DiscriminatorColumn(name = "entity_type", columnDefinition = "char(1)")
 public abstract class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,11 +24,22 @@ public abstract class Account implements Serializable {
 	@Column(nullable = false, length = 45)
 	private String name;
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	@Column(name = "login_id", nullable = false, length = 10)
 	private String loginId;
 	@Column(nullable = false)
 	private String password;
+	
+	public Account() {
+	}
+
+	public Account(String name, String loginId, String password) {
+		super();
+		this.name = name;
+		this.loginId = loginId;
+		this.password = password;
+	}
 
 	public enum Role {
 		Teacher, Student, Office

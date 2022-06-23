@@ -5,7 +5,10 @@ import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import com.jdc.student.entity.Student;
 
 public class TestDbCreation {
 
@@ -23,9 +26,18 @@ public class TestDbCreation {
 		}
 	}
 	
-	@Test
-	void test() {
+	@ParameterizedTest
+	@CsvSource({
+		"Aung Aung,aungaung,aungaung"
+	})
+	void test(String name, String loginId, String password) {
 		
+		var em = emf.createEntityManager();
+		em.getTransaction().begin();
 		
+		var account = new Student(name, loginId, password);
+		em.persist(account);
+		
+		em.getTransaction().commit();
 	}
 }
