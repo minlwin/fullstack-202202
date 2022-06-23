@@ -1,8 +1,10 @@
 package com.jdc.student.entity;
 
+import java.awt.Color;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.jdc.student.entity.converter.ColorConverter;
 
 @Entity
 @Table(name = "account")
@@ -30,7 +34,10 @@ public abstract class Account implements Serializable {
 	private String loginId;
 	@Column(nullable = false)
 	private String password;
-	
+
+	@Convert(converter = ColorConverter.class)
+	private Color color;
+
 	public Account() {
 	}
 
@@ -43,6 +50,14 @@ public abstract class Account implements Serializable {
 
 	public enum Role {
 		Teacher, Student, Office
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	public int getId() {

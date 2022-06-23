@@ -1,5 +1,7 @@
 package com.jdc.test;
 
+import java.awt.Color;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -36,6 +38,8 @@ public class TestDbCreation {
 		em.getTransaction().begin();
 		
 		var account = new Student(name, loginId, password);
+		account.setColor(Color.DARK_GRAY);
+		
 		em.persist(account);
 		
 		em.getTransaction().commit();
