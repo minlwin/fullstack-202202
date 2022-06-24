@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Member implements Serializable{
+public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -21,6 +21,17 @@ public class Member implements Serializable{
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
+	public Member() {
+	}
+
+	public Member(String name, String loginId, String password) {
+		super();
+		this.name = name;
+		this.loginId = loginId;
+		this.password = password;
+		this.role = Role.Member;
+	}
 
 	public enum Role {
 		Admin, Member
