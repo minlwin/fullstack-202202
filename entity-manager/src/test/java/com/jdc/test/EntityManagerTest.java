@@ -126,6 +126,17 @@ public class EntityManagerTest {
 		assertThrows(EntityNotFoundException.class, member::getName);
 	}
 	
+	@Order(6)
+	@ParameterizedTest
+	@ValueSource(ints = 1)
+	void test_lazy_fetch_mode(int id) {
+		var em = emf.createEntityManager();
+		var member = em.getReference(Member.class, id);
+		
+		em.detach(member);
+		
+		assertThrows(LazyInitializationException.class, () -> member.getTags().size());
+	}
 	
 	@AfterAll
 	static void shutDown() {

@@ -1,7 +1,10 @@
 package com.jdc.demo.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,11 +25,15 @@ public class Member implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	@ElementCollection
+	private List<String> tags;
+
 	public Member() {
+		tags = new ArrayList<>();
 	}
 
 	public Member(String name, String loginId, String password) {
-		super();
+		this();
 		this.name = name;
 		this.loginId = loginId;
 		this.password = password;
@@ -75,6 +82,14 @@ public class Member implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 }
