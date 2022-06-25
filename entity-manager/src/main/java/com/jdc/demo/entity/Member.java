@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Member implements Serializable {
@@ -27,7 +28,10 @@ public class Member implements Serializable {
 
 	@ElementCollection
 	private List<String> tags;
-
+	
+	@OneToMany(mappedBy = "member", orphanRemoval = true)
+	private List<Contact> contacts;
+	
 	public Member() {
 		tags = new ArrayList<>();
 	}
@@ -90,6 +94,14 @@ public class Member implements Serializable {
 
 	public void setTags(List<String> tags) {
 		this.tags = tags;
+	}
+
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
 	}
 
 }
