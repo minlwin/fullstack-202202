@@ -11,18 +11,27 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Contact implements Serializable{
+public class Contact implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne(fetch = LAZY)
 	private Member member;
 	private String phone;
 	private String email;
+
+	public Contact() {
+	}
+
+	public Contact(String phone, String email) {
+		super();
+		this.phone = phone;
+		this.email = email;
+	}
 
 	public int getId() {
 		return id;

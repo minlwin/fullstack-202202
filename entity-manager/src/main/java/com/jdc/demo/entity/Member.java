@@ -1,10 +1,13 @@
 package com.jdc.demo.entity;
 
+import static javax.persistence.CascadeType.DETACH;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -30,11 +33,12 @@ public class Member implements Serializable {
 	@ElementCollection
 	private List<String> tags;
 	
-	@OneToMany(mappedBy = "member", orphanRemoval = true, cascade = {CascadeType.MERGE})
+	@OneToMany(mappedBy = "member", orphanRemoval = true, cascade = { PERSIST, MERGE, DETACH })
 	private List<Contact> contacts;
 	
 	public Member() {
 		tags = new ArrayList<>();
+		contacts = new ArrayList<>();
 	}
 
 	public Member(String name, String loginId, String password) {
@@ -47,6 +51,11 @@ public class Member implements Serializable {
 
 	public enum Role {
 		Admin, Member
+	}
+	
+	public void addContact(Contact c) {
+		c.setMember(this);
+		contacts.add(c);
 	}
 
 	public int getId() {
