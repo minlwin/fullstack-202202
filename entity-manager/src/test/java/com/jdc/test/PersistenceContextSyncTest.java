@@ -59,6 +59,9 @@ public class PersistenceContextSyncTest {
 					System.out.println("Before Operation 1 : Balance of %s is %d.".formatted(account.getName(), account.getBalance()));
 
 					account.setBalance(account.getBalance() + 100_000);
+					
+					em.flush();
+					
 					System.out.println("After Operation 1: Balance of %s is %d.".formatted(account.getName(), account.getBalance()));
 					
 					em.getTransaction().commit();
@@ -81,6 +84,10 @@ public class PersistenceContextSyncTest {
 
 					em.getTransaction().begin();
 					System.out.println("Before Operation 2 : Balance of %s is %d.".formatted(account.getName(), account.getBalance()));
+					
+					em.refresh(account);
+
+					System.out.println("Before Operation 2 : Balance of %s is %d. (Refreshed)".formatted(account.getName(), account.getBalance()));
 
 					account.setBalance(account.getBalance() - 50_000);
 					System.out.println("After Operation 2: Balance of %s is %d.".formatted(account.getName(), account.getBalance()));
