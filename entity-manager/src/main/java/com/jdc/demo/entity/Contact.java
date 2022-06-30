@@ -2,16 +2,17 @@ package com.jdc.demo.entity;
 
 import static javax.persistence.FetchType.LAZY;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.jdc.demo.entity.listeners.TimeEnableEntity;
+import com.jdc.demo.entity.listeners.Times;
+
 @Entity
-public class Contact implements Serializable {
+public class Contact implements TimeEnableEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +25,8 @@ public class Contact implements Serializable {
 	private String phone;
 	private String email;
 
+	private Times times;
+
 	public Contact() {
 	}
 
@@ -31,6 +34,14 @@ public class Contact implements Serializable {
 		super();
 		this.phone = phone;
 		this.email = email;
+	}
+
+	public Times getTimes() {
+		return times;
+	}
+
+	public void setTimes(Times times) {
+		this.times = times;
 	}
 
 	public int getId() {

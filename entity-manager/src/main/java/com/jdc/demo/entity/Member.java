@@ -4,12 +4,12 @@ import static javax.persistence.CascadeType.DETACH;
 import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.CascadeType.PERSIST;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -17,8 +17,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.jdc.demo.entity.listeners.TimeEnableEntity;
+import com.jdc.demo.entity.listeners.Times;
+import com.jdc.demo.entity.listeners.TimesListener;
+
 @Entity
-public class Member implements Serializable {
+@EntityListeners(TimesListener.class)
+public class Member implements TimeEnableEntity {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -32,10 +37,12 @@ public class Member implements Serializable {
 
 	@ElementCollection
 	private List<String> tags;
-	
+
 	@OneToMany(mappedBy = "member", orphanRemoval = true, cascade = { PERSIST, MERGE, DETACH })
 	private List<Contact> contacts;
-	
+
+	private Times times;
+
 	public Member() {
 		tags = new ArrayList<>();
 		contacts = new ArrayList<>();
@@ -52,7 +59,15 @@ public class Member implements Serializable {
 	public enum Role {
 		Admin, Member
 	}
-	
+
+	public Times getTimes() {
+		return times;
+	}
+
+	public void setTimes(Times times) {
+		this.times = times;
+	}
+
 	public void addContact(Contact c) {
 		c.setMember(this);
 		contacts.add(c);
