@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -19,10 +18,8 @@ import javax.persistence.OneToMany;
 
 import com.jdc.demo.entity.listeners.TimeEnableEntity;
 import com.jdc.demo.entity.listeners.Times;
-import com.jdc.demo.entity.listeners.TimesListener;
 
 @Entity
-@EntityListeners(TimesListener.class)
 public class Member implements TimeEnableEntity {
 
 	private static final long serialVersionUID = 1L;
