@@ -3,6 +3,7 @@ package com.jdc.demo.entity;
 import static javax.persistence.FetchType.LAZY;
 
 import javax.persistence.Entity;
+import javax.persistence.ExcludeDefaultListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import com.jdc.demo.entity.listeners.TimeEnableEntity;
 import com.jdc.demo.entity.listeners.Times;
 
 @Entity
+@ExcludeDefaultListeners
 public class Contact implements TimeEnableEntity {
 
 	private static final long serialVersionUID = 1L;
