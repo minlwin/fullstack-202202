@@ -11,9 +11,10 @@ public class ProductTest extends AbstractTest{
 
 	@ParameterizedTest
 	@CsvSource({
-		"f,2",
-		"b,1",
-		"e,0"
+		"fo,3",
+		"foo,3",
+		"foods,3",
+		"foodd,0"
 	})
 	void find_by_category_name_like(String category, int count) {
 		
