@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "Category.allCount", query = "select count(c) from Category c")
 @NamedQuery(name = "Category.getAll", query = "select c from Category c")
 @NamedQuery(name = "Category.updateNameById", query = "update Category c set c.name = :name where c.id = :id")
+@NamedQuery(name = "Category.findByNameLike", query = "select c from Category c where lower(c.name) like ?1")
 public class Category implements Serializable{
 
 	private static final long serialVersionUID = 1L;

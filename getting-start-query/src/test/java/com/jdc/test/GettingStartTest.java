@@ -2,33 +2,13 @@ package com.jdc.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import com.jdc.query.entity.Category;
 
-public class GettingStartTest {
-
-	EntityManagerFactory emf;
-	EntityManager em;
-
-	@BeforeEach
-	void init() {
-		emf = Persistence.createEntityManagerFactory("getting-start-query");
-		em = emf.createEntityManager();
-	}
-
-	@AfterEach
-	void close() {
-		if (null != emf && emf.isOpen()) {
-			emf.close();
-		}
-	}
+public class GettingStartTest extends AbstractTest{
 
 	@Test
 	void select_count() {
@@ -63,5 +43,18 @@ public class GettingStartTest {
 		em.getTransaction().commit();
 		
 		assertEquals(1, count);
+	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"f,2",
+		"e,1"
+	})
+	void seach_category_by_name_like(String name, int count) {
+		var query = em.createNamedQuery("Category.findByNameLike", Category.class);
+		query.setParameter(1, name.toLowerCase().concat("%"));
+		
+		var list = query.getResultList();
+		assertEquals(count, list.size());
 	}
 }
