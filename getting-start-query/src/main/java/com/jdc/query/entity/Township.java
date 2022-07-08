@@ -12,17 +12,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "township")
-public class Township implements Serializable{
+public class Township implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(nullable = false)
 	private String name;
 	@Column(nullable = false)
-	private String devision;
+	private String division;
 
 	public int getId() {
 		return id;
@@ -40,17 +40,17 @@ public class Township implements Serializable{
 		this.name = name;
 	}
 
-	public String getDevision() {
-		return devision;
+	public String getDivision() {
+		return division;
 	}
 
-	public void setDevision(String devision) {
-		this.devision = devision;
+	public void setDivision(String division) {
+		this.division = division;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(devision, id, name);
+		return Objects.hash(division, id, name);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class Township implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Township other = (Township) obj;
-		return Objects.equals(devision, other.devision) && id == other.id && Objects.equals(name, other.name);
+		return Objects.equals(division, other.division) && id == other.id && Objects.equals(name, other.name);
 	}
 
 }

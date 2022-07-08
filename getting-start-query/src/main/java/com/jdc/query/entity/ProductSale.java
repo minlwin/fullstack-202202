@@ -10,13 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product_sale")
-public class ProductSale implements Serializable{
+public class ProductSale implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private ProductSalePk id;
-	
+
 	@ManyToOne
 	@MapsId("productId")
 	private Product product;
@@ -24,8 +24,8 @@ public class ProductSale implements Serializable{
 	@MapsId("saleId")
 	private Sale sale;
 
-	private int quentity;
-	
+	private int quantity;
+
 	public ProductSale() {
 		id = new ProductSalePk();
 	}
@@ -56,12 +56,12 @@ public class ProductSale implements Serializable{
 		this.id.setSaleId(sale.getId());
 	}
 
-	public int getQuentity() {
-		return quentity;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQuentity(int quentity) {
-		this.quentity = quentity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }
