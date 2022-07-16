@@ -17,6 +17,15 @@ insert into product(name, category_id, image, price, available) values ('7 Up', 
 insert into product(name, category_id, image, price, available) values ('Mac Book Pro 13 Inches', 7, 'mac-book-pro-13-inches.png', 2500000, true);
 insert into product(name, category_id, image, price, available) values ('Mac Book Air Pro', 7, 'mac-book-air-pro.png', 1800000, true);
 
+-- Product Color
+insert into product_colors (product, color) values (1, 'Red');
+insert into product_colors (product, color) values (1, 'Green');
+insert into product_colors (product, color) values (1, 'Blue');
+
+insert into product_colors (product, color) values (2, 'Red');
+insert into product_colors (product, color) values (3, 'Red');
+
+
 -- Customer
 insert into customer(name, email, phone) values ('Aung Aung', 'aung-aung@gmail.com', '094-3309-1234');
 insert into customer(name, email, phone) values ('Maung Maung', 'maung-maung@gmail.com', '095-1209-1009');
@@ -63,7 +72,7 @@ insert into sale (sale_date, customer_id) values ('2022-07-08', 6);
 insert into product_sale (sale_id, product_id, quantity) values (1, 1, 2);
 insert into product_sale (sale_id, product_id, quantity) values (1, 2, 1);
 insert into product_sale (sale_id, product_id, quantity) values (1, 3, 3);
-insert into product_sale (sale_id, product_id, quantity) values (1, 3, 3);
+insert into product_sale (sale_id, product_id, quantity) values (1, 4, 3);
 insert into product_sale (sale_id, product_id, quantity) values (2, 4, 5);
 insert into product_sale (sale_id, product_id, quantity) values (2, 5, 5);
 insert into product_sale (sale_id, product_id, quantity) values (2, 2, 3);
