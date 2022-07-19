@@ -8,8 +8,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "address")
 public class Address implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
