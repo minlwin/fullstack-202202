@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Sale implements Serializable{
 	@ManyToOne(optional = false)
 	private Customer customer;
 	
-	@OneToMany(mappedBy = "sale", orphanRemoval = true)
+	@OneToMany(mappedBy = "sale", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<ProductSale> products;
 
 	public int getId() {
