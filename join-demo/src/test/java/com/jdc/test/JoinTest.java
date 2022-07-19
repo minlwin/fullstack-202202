@@ -64,7 +64,7 @@ public class JoinTest {
 	
 	@Order(5)
 	@Test
-	void test_to_many_jpal_join() {
+	void test_to_many_jpql_join() {
 		
 		var jpql = "select p from Product p join p.supplier s where s.name = :supplier";
 		var query = em.createQuery(jpql, Product.class);
