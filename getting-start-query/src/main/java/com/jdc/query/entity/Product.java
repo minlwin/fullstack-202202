@@ -17,7 +17,10 @@ import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "product")
-@NamedQuery(name = "Product.findByCategoryNameLike", query = "select p from Product p where lower(p.category.name) like :name")
+@NamedQuery(
+		name = "Product.findByCategoryNameLike", 
+		query = "select p from Product p where lower(p.category.name) like :name"
+)
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
