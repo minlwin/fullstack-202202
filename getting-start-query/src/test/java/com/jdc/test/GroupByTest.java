@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import com.jdc.query.dto.CustomerDates;
 import com.jdc.query.dto.ProductCountByCategory;
+import com.jdc.query.dto.SaleProductCountByTownship;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class GroupByTest extends AbstractTest{
@@ -60,5 +61,23 @@ public class GroupByTest extends AbstractTest{
 		var list = query.getResultList();
 		
 		System.out.println(list);
+	}
+	
+	@Test
+	@Order(4)
+	void test_sum() {
+		
+		var list = em.createQuery("""
+				select new com.jdc.query.dto.SaleProductCountByTownship(
+					t.id, t.name, p.id, p.name, p.price, sum(ps.quantity)
+				) from ProductSale ps 
+				join ps.product p 
+				join ps.sale.customer.address.township t 
+				group by t.id, t.name, p.id, p.name, p.price 
+				order by t.name, p.name
+				""", SaleProductCountByTownship.class).getResultList();
+		
+		list.forEach(System.out::println);
+		
 	}
 }
