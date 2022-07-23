@@ -30,15 +30,16 @@ public class ConfigWithoutJpaSetting {
 		var bean = new LocalContainerEntityManagerFactoryBean();
 		bean.setDataSource(dataSource);
 		bean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-		
+		bean.setJpaProperties(jpaProperties());
+		return bean;
+	}
+	
+	Properties jpaProperties() {
 		var props = new Properties();
-		bean.setJpaProperties(props);
-		
 		props.put(Environment.HBM2DDL_AUTO, "update");
 		props.put(Environment.SHOW_SQL, true);
 		props.put(Environment.FORMAT_SQL, true);
-		
-		return bean;
+		return props;
 	}
 	
 }
