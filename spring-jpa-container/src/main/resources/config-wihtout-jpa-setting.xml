@@ -20,6 +20,7 @@
 	<bean id="entityManagerFactoryBean"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" 
 		p:dataSource-ref="dataSource" 
+		p:packagesToScan="com.jdc.demo.entity"
 		p:persistenceProviderClass="org.hibernate.jpa.HibernatePersistenceProvider"
 		p:jpaProperties-ref="jpaProperties">
 	</bean>
